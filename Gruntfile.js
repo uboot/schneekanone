@@ -14,7 +14,7 @@ module.exports = function(grunt) {
     },
     watch: {
       scripts: {
-        files: ['Gruntfile.js', '*.html', '*.js'],
+        files: ['Gruntfile.js', '*.html', '*.js', 'assets/**'],
         options: {
           spawn: true,
           reload: true,
