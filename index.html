@@ -15,12 +15,14 @@
 <script type="text/javascript">
 var game = new Phaser.Game(640, 480, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 function preload() {
+  // https://gamedevacademy.org/html5-phaser-tutorial-top-down-games-with-tiled/
+  // https://gist.github.com/jdfight/9646833f9bbdcb1104db
+  game.load.tilemap('level', 'assets/level_1.json');
+  game.load.image('groomer', 'assets/snow_groomer.png');
   game.load.image('background', 'assets/background.png');
-  game.load.image('player', 'assets/player.png');
 }
 function create() {
-  game.add.sprite(0, 0, 'background');
-  game.add.sprite(0, 0, 'player');
+  game.add.tilemap('level');
 }
 function update() {
 }
