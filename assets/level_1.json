@@ -2,14 +2,14 @@
  "layers":[
         {
          "draworder":"topdown",
-         "height":100,
+         "height":0,
          "name":"Background",
          "objects":[
                 {
                  "gid":1,
                  "height":480,
                  "id":1,
-                 "name":"",
+                 "name":"Background",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -20,20 +20,20 @@
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
-         "width":100,
+         "width":0,
          "x":0,
          "y":0
         }, 
         {
          "draworder":"topdown",
-         "height":100,
+         "height":0,
          "name":"Sprites",
          "objects":[
                 {
                  "gid":3,
                  "height":57,
                  "id":5,
-                 "name":"",
+                 "name":"Groomer",
                  "properties":
                     {
                      "moveX":10,
@@ -45,20 +45,32 @@
                      "moveY":"int"
                     },
                  "rotation":0,
-                 "type":"groomer",
+                 "type":"",
                  "visible":true,
                  "width":61,
                  "x":261,
                  "y":142
+                }, 
+                {
+                 "gid":4,
+                 "height":64,
+                 "id":8,
+                 "name":"Player",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":35,
+                 "x":189,
+                 "y":223
                 }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
-         "width":100,
+         "width":0,
          "x":0,
          "y":0
         }],
- "nextobjectid":7,
+ "nextobjectid":9,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
@@ -69,7 +81,7 @@
          "margin":0,
          "name":"Objects",
          "spacing":0,
-         "tilecount":2,
+         "tilecount":3,
          "tileheight":480,
          "tiles":
             {
@@ -80,6 +92,10 @@
              "2":
                 {
                  "image":"snow_groomer.png"
+                },
+             "3":
+                {
+                 "image":"player.png"
                 }
             },
          "tilewidth":640
