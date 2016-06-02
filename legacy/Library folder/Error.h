@@ -1,0 +1,1 @@
+/****************************************************************************** SLVGError.h   ******************************************************************************/#pragma oncetypedef void (*SLVGErrorProcPtr)(OSErr, long );void SetSLVGErrorHandler(SLVGErrorProcPtr errorProc, long refcon);OSErr GetLastSLVGError(void);

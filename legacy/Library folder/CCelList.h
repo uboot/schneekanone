@@ -1,0 +1,1 @@
+#pragma once#include "CObjectList.h"class CCelList : public CObjectList {	CCelList(long initialItems = 4)		: CObjectList(initialItems) {}		};
