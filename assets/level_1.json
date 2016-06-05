@@ -62,6 +62,18 @@
                  "width":35,
                  "x":189,
                  "y":223
+                }, 
+                {
+                 "gid":3,
+                 "height":57,
+                 "id":11,
+                 "name":"Groomer2",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":61,
+                 "x":399,
+                 "y":258
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -70,7 +82,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":9,
+ "nextobjectid":12,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
