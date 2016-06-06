@@ -28,53 +28,7 @@
          "draworder":"topdown",
          "height":0,
          "name":"Sprites",
-         "objects":[
-                {
-                 "gid":3,
-                 "height":57,
-                 "id":5,
-                 "name":"Groomer",
-                 "properties":
-                    {
-                     "moveX":10,
-                     "moveY":10
-                    },
-                 "propertytypes":
-                    {
-                     "moveX":"int",
-                     "moveY":"int"
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":61,
-                 "x":261,
-                 "y":142
-                }, 
-                {
-                 "gid":4,
-                 "height":64,
-                 "id":8,
-                 "name":"Player",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":35,
-                 "x":189,
-                 "y":223
-                }, 
-                {
-                 "gid":3,
-                 "height":57,
-                 "id":11,
-                 "name":"Groomer2",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":61,
-                 "x":399,
-                 "y":258
-                }],
+         "objects":[],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -82,7 +36,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":12,
+ "nextobjectid":15,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
@@ -91,26 +45,130 @@
          "columns":0,
          "firstgid":1,
          "margin":0,
-         "name":"Objects",
+         "name":"background",
          "spacing":0,
-         "tilecount":3,
+         "tilecount":1,
          "tileheight":480,
          "tiles":
             {
              "0":
                 {
                  "image":"background.png"
-                },
-             "2":
-                {
-                 "image":"snow_groomer.png"
-                },
-             "3":
-                {
-                 "image":"player.png"
                 }
             },
          "tilewidth":640
+        }, 
+        {
+         "columns":3,
+         "firstgid":5,
+         "image":"snow_groomer_up.png",
+         "imageheight":64,
+         "imagewidth":192,
+         "margin":0,
+         "name":"snow_groomer_up",
+         "spacing":0,
+         "tilecount":3,
+         "tileheight":64,
+         "tiles":
+            {
+             "0":
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":1
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":2
+                        }]
+                }
+            },
+         "tilewidth":64
+        }, 
+        {
+         "columns":3,
+         "firstgid":8,
+         "image":"snow_groomer_right.png",
+         "imageheight":57,
+         "imagewidth":183,
+         "margin":0,
+         "name":"snow_groomer_right",
+         "spacing":0,
+         "tilecount":3,
+         "tileheight":57,
+         "tilewidth":61
+        }, 
+        {
+         "columns":5,
+         "firstgid":11,
+         "image":"modern_fence.png",
+         "imageheight":64,
+         "imagewidth":320,
+         "margin":0,
+         "name":"modern_fence",
+         "spacing":0,
+         "tilecount":5,
+         "tileheight":64,
+         "tilewidth":64
+        }, 
+        {
+         "columns":5,
+         "firstgid":16,
+         "image":"old_fence.png",
+         "imageheight":64,
+         "imagewidth":320,
+         "margin":0,
+         "name":"old_fence",
+         "spacing":0,
+         "tilecount":5,
+         "tileheight":64,
+         "tilewidth":64
+        }, 
+        {
+         "columns":4,
+         "firstgid":21,
+         "image":"bonus_sprites.png",
+         "imageheight":32,
+         "imagewidth":128,
+         "margin":0,
+         "name":"bonus_sprites",
+         "spacing":0,
+         "tilecount":4,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "columns":2,
+         "firstgid":25,
+         "image":"lift_gate.png",
+         "imageheight":64,
+         "imagewidth":84,
+         "margin":0,
+         "name":"lift_gate",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":64,
+         "tiles":
+            {
+             "0":
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":1
+                        }]
+                }
+            },
+         "tilewidth":42
         }],
  "tilewidth":32,
  "version":1,

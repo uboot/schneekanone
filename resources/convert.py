@@ -89,6 +89,6 @@ with open('01001') as f:
 with open('00200') as f:
     print readSpriteTemplate(f)
     
-with open('00205') as f:
+with open('00204') as f:
     print readSpriteTemplate(f)
     
