@@ -1,3 +1,4 @@
+import os
 import struct
 
 def readShort(stream):
@@ -86,9 +87,9 @@ with open('01001') as f:
         print readBonusSprite(f)
     print len(f.read())
     
-with open('00200') as f:
-    print readSpriteTemplate(f)
-    
-with open('00204') as f:
-    print readSpriteTemplate(f)
+for name in os.listdir('.'):
+    print name
+    with open(name) as f:
+        print readSpriteTemplate(f)
+
     

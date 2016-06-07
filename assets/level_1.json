@@ -3,13 +3,13 @@
         {
          "draworder":"topdown",
          "height":0,
-         "name":"Background",
+         "name":"background",
          "objects":[
                 {
                  "gid":1,
                  "height":480,
                  "id":1,
-                 "name":"Background",
+                 "name":"background",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -27,8 +27,92 @@
         {
          "draworder":"topdown",
          "height":0,
-         "name":"Sprites",
-         "objects":[],
+         "name":"sprites",
+         "objects":[
+                {
+                 "gid":2,
+                 "height":32,
+                 "id":18,
+                 "name":"wax_green",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":130,
+                 "y":67
+                }, 
+                {
+                 "gid":3,
+                 "height":32,
+                 "id":19,
+                 "name":"wax_pink",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":104,
+                 "y":95
+                }, 
+                {
+                 "gid":4,
+                 "height":32,
+                 "id":20,
+                 "name":"cup",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":79,
+                 "y":151
+                }, 
+                {
+                 "gid":5,
+                 "height":32,
+                 "id":21,
+                 "name":"chocolate",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":163,
+                 "y":61
+                }, 
+                {
+                 "gid":36,
+                 "height":64,
+                 "id":27,
+                 "name":"snow_groomer_up",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":333,
+                 "y":201
+                }, 
+                {
+                 "gid":39,
+                 "height":64,
+                 "id":28,
+                 "name":"snow_groomer_right",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":259,
+                 "y":269
+                }, 
+                {
+                 "gid":36,
+                 "height":64,
+                 "id":29,
+                 "name":"snow_groomer_up",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":400,
+                 "y":343
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -36,7 +120,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":15,
+ "nextobjectid":30,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
@@ -59,15 +143,95 @@
          "tilewidth":640
         }, 
         {
-         "columns":3,
-         "firstgid":5,
-         "image":"snow_groomer_up.png",
+         "columns":4,
+         "firstgid":2,
+         "image":"bonus_sprites.png",
+         "imageheight":32,
+         "imagewidth":128,
+         "margin":0,
+         "name":"bonus_sprites",
+         "spacing":0,
+         "tilecount":4,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "columns":5,
+         "firstgid":6,
+         "image":"fence.png",
+         "imageheight":192,
+         "imagewidth":320,
+         "margin":0,
+         "name":"fence",
+         "spacing":0,
+         "tilecount":15,
+         "tileheight":64,
+         "tilewidth":64
+        }, 
+        {
+         "columns":1,
+         "firstgid":21,
+         "image":"finish.png",
+         "imageheight":128,
+         "imagewidth":64,
+         "margin":0,
+         "name":"finish",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":128,
+         "tilewidth":64
+        }, 
+        {
+         "columns":2,
+         "firstgid":22,
+         "image":"ground.png",
          "imageheight":64,
+         "imagewidth":128,
+         "margin":0,
+         "name":"ground",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":64,
+         "tilewidth":64
+        }, 
+        {
+         "columns":4,
+         "firstgid":24,
+         "image":"obstacles.png",
+         "imageheight":192,
+         "imagewidth":256,
+         "margin":0,
+         "name":"obstacles",
+         "spacing":0,
+         "tilecount":12,
+         "tileheight":64,
+         "tiles":
+            {
+             "4":
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":4
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":5
+                        }]
+                }
+            },
+         "tilewidth":64
+        }, 
+        {
+         "columns":3,
+         "firstgid":36,
+         "image":"snow_groomer.png",
+         "imageheight":128,
          "imagewidth":192,
          "margin":0,
-         "name":"snow_groomer_up",
+         "name":"snow_groomer",
          "spacing":0,
-         "tilecount":3,
+         "tilecount":6,
          "tileheight":64,
          "tiles":
             {
@@ -86,89 +250,25 @@
                          "duration":100,
                          "tileid":2
                         }]
-                }
-            },
-         "tilewidth":64
-        }, 
-        {
-         "columns":3,
-         "firstgid":8,
-         "image":"snow_groomer_right.png",
-         "imageheight":57,
-         "imagewidth":183,
-         "margin":0,
-         "name":"snow_groomer_right",
-         "spacing":0,
-         "tilecount":3,
-         "tileheight":57,
-         "tilewidth":61
-        }, 
-        {
-         "columns":5,
-         "firstgid":11,
-         "image":"modern_fence.png",
-         "imageheight":64,
-         "imagewidth":320,
-         "margin":0,
-         "name":"modern_fence",
-         "spacing":0,
-         "tilecount":5,
-         "tileheight":64,
-         "tilewidth":64
-        }, 
-        {
-         "columns":5,
-         "firstgid":16,
-         "image":"old_fence.png",
-         "imageheight":64,
-         "imagewidth":320,
-         "margin":0,
-         "name":"old_fence",
-         "spacing":0,
-         "tilecount":5,
-         "tileheight":64,
-         "tilewidth":64
-        }, 
-        {
-         "columns":4,
-         "firstgid":21,
-         "image":"bonus_sprites.png",
-         "imageheight":32,
-         "imagewidth":128,
-         "margin":0,
-         "name":"bonus_sprites",
-         "spacing":0,
-         "tilecount":4,
-         "tileheight":32,
-         "tilewidth":32
-        }, 
-        {
-         "columns":2,
-         "firstgid":25,
-         "image":"lift_gate.png",
-         "imageheight":64,
-         "imagewidth":84,
-         "margin":0,
-         "name":"lift_gate",
-         "spacing":0,
-         "tilecount":2,
-         "tileheight":64,
-         "tiles":
-            {
-             "0":
+                },
+             "3":
                 {
                  "animation":[
                         {
                          "duration":100,
-                         "tileid":0
+                         "tileid":5
                         }, 
                         {
                          "duration":100,
-                         "tileid":1
+                         "tileid":4
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":3
                         }]
                 }
             },
-         "tilewidth":42
+         "tilewidth":64
         }],
  "tilewidth":32,
  "version":1,

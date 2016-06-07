@@ -18,15 +18,21 @@ function preload() {
   // https://gamedevacademy.org/html5-phaser-tutorial-top-down-games-with-tiled/
   // https://gist.github.com/jdfight/9646833f9bbdcb1104db
   game.load.tilemap('level', 'assets/level_1.json', null, Phaser.Tilemap.TILED_JSON);
-  game.load.image('groomer', 'assets/snow_groomer.png');
-  game.load.image('player', 'assets/player.png');
+  game.load.spritesheet('bonus_sprites', 'assets/bonus_sprites.png', 32, 32);
+  game.load.spritesheet('snow_groomer', 'assets/snow_groomer.png', 64, 64);
   game.load.image('background', 'assets/background.png');
+  
+  game.load.spritesheet('player', 'assets/player.png', 35, 64);
 }
 function create() {
   var map = game.add.tilemap('level');
-  map.createFromObjects('Background', 1, 'background')
-  map.createFromObjects('Sprites', 3, 'groomer')
-  map.createFromObjects('Sprites', 4, 'player')
+  map.createFromObjects('background', 1, 'background');
+  map.createFromObjects('sprites', 2, 'bonus_sprites', 0);
+  map.createFromObjects('sprites', 3, 'bonus_sprites', 1);
+  map.createFromObjects('sprites', 4, 'bonus_sprites', 2);
+  map.createFromObjects('sprites', 5, 'bonus_sprites', 3);
+  map.createFromObjects('sprites', 36, 'snow_groomer', 0);
+  map.createFromObjects('sprites', 39, 'snow_groomer', 3);
 }
 function update() {
 }
