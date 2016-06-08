@@ -19,10 +19,15 @@ function preload() {
   // https://gist.github.com/jdfight/9646833f9bbdcb1104db
   game.load.tilemap('level', 'assets/level_1.json', null, Phaser.Tilemap.TILED_JSON);
   game.load.spritesheet('bonus_sprites', 'assets/bonus_sprites.png', 32, 32);
+  game.load.spritesheet('fence', 'assets/fence.png', 64, 64);
   game.load.spritesheet('snow_groomer', 'assets/snow_groomer.png', 64, 64);
-  game.load.image('background', 'assets/background.png');
-  
+  game.load.spritesheet('ground', 'assets/ground.png', 64, 64);
+  game.load.spritesheet('obstacles', 'assets/obstacles.png', 64, 64);
   game.load.spritesheet('player', 'assets/player.png', 35, 64);
+  
+  game.load.image('background', 'assets/background.png');
+  game.load.image('finish', 'assets/finish.png');
+  
 }
 function create() {
   var map = game.add.tilemap('level');
@@ -31,8 +36,31 @@ function create() {
   map.createFromObjects('sprites', 3, 'bonus_sprites', 1);
   map.createFromObjects('sprites', 4, 'bonus_sprites', 2);
   map.createFromObjects('sprites', 5, 'bonus_sprites', 3);
+  map.createFromObjects('sprites', 6, 'fence', 0);
+  map.createFromObjects('sprites', 7, 'fence', 1);
+  map.createFromObjects('sprites', 8, 'fence', 2);
+  map.createFromObjects('sprites', 9, 'fence', 3);
+  map.createFromObjects('sprites', 10, 'fence', 4);
+  map.createFromObjects('sprites', 11, 'fence', 5);
+  map.createFromObjects('sprites', 12, 'fence', 6);
+  map.createFromObjects('sprites', 13, 'fence', 7);
+  map.createFromObjects('sprites', 14, 'fence', 8);
+  map.createFromObjects('sprites', 15, 'fence', 9);
+  map.createFromObjects('sprites', 16, 'fence', 10);
+  map.createFromObjects('sprites', 17, 'fence', 11);
+  map.createFromObjects('sprites', 18, 'fence', 12);
+  map.createFromObjects('sprites', 19, 'fence', 13);
+  map.createFromObjects('sprites', 24, 'obstacles', 0);
+  map.createFromObjects('sprites', 25, 'obstacles', 1);
+  map.createFromObjects('sprites', 26, 'obstacles', 2);
+  map.createFromObjects('sprites', 27, 'obstacles', 3);
+  map.createFromObjects('sprites', 28, 'obstacles', 4);
+  map.createFromObjects('sprites', 29, 'obstacles', 5);
+  map.createFromObjects('sprites', 30, 'obstacles', 6);
+  map.createFromObjects('sprites', 31, 'obstacles', 7);
   map.createFromObjects('sprites', 36, 'snow_groomer', 0);
   map.createFromObjects('sprites', 39, 'snow_groomer', 3);
+  map.createFromObjects('sprites', 21, 'finish');
 }
 function update() {
 }
