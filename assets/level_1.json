@@ -333,7 +333,7 @@
                  "gid":28,
                  "height":64,
                  "id":54,
-                 "name":"gate",
+                 "name":"lift_gate",
                  "rotation":0,
                  "type":"",
                  "visible":true,
