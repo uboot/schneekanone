@@ -481,21 +481,6 @@
          "spacing":0,
          "tilecount":12,
          "tileheight":64,
-         "tiles":
-            {
-             "4":
-                {
-                 "animation":[
-                        {
-                         "duration":100,
-                         "tileid":4
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":5
-                        }]
-                }
-            },
          "tilewidth":64
         }, 
         {
@@ -509,41 +494,6 @@
          "spacing":0,
          "tilecount":6,
          "tileheight":64,
-         "tiles":
-            {
-             "0":
-                {
-                 "animation":[
-                        {
-                         "duration":100,
-                         "tileid":0
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":1
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":2
-                        }]
-                },
-             "3":
-                {
-                 "animation":[
-                        {
-                         "duration":100,
-                         "tileid":5
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":4
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":3
-                        }]
-                }
-            },
          "tilewidth":64
         }],
  "tilewidth":32,

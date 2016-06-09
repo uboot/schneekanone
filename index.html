@@ -61,6 +61,16 @@ function create() {
   map.createFromObjects('sprites', 36, 'snow_groomer', 0);
   map.createFromObjects('sprites', 39, 'snow_groomer', 3);
   map.createFromObjects('sprites', 21, 'finish');
+  
+  game.world.iterate('name', 'snow_groomer_up', Phaser.RETURN_NONE, function(child) {
+    child.animations.add('move', [0, 1, 2], 3, true);
+    child.animations.play('move');
+  });
+  
+  game.world.iterate('name', 'snow_groomer_right', Phaser.RETURN_NONE, function(child) {
+    child.animations.add('move', [5, 4, 3], 3, true);
+    child.animations.play('move');
+  });
 }
 function update() {
 }
