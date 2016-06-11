@@ -55,7 +55,6 @@ function create() {
   map.createFromObjects('sprites', 26, 'obstacles', 2);
   map.createFromObjects('sprites', 27, 'obstacles', 3);
   map.createFromObjects('sprites', 28, 'obstacles', 4);
-  map.createFromObjects('sprites', 29, 'obstacles', 5);
   map.createFromObjects('sprites', 30, 'obstacles', 6);
   map.createFromObjects('sprites', 31, 'obstacles', 7);
   map.createFromObjects('sprites', 36, 'snow_groomer', 0);
@@ -69,6 +68,11 @@ function create() {
   
   game.world.iterate('name', 'snow_groomer_right', Phaser.RETURN_NONE, function(child) {
     child.animations.add('move', [5, 4, 3], 3, true);
+    child.animations.play('move');
+  });
+  
+  game.world.iterate('name', 'lift_gate', Phaser.RETURN_NONE, function(child) {
+    child.animations.add('move', [4, 5], 1, true);
     child.animations.play('move');
   });
 }

@@ -1,4 +1,5 @@
-import os
+import json
+import string
 import struct
 
 idToKeyMap = {
@@ -36,218 +37,38 @@ idToKeyMap = {
     233: 'skull'
 }
 
-sprites = [
-    {
-     "gid":2,
-     "height":32,
-     "id":18,
-     "name":"wax_green",
-     "width":32
-    }, 
-    {
-     "gid":3,
-     "height":32,
-     "id":19,
-     "name":"wax_pink",
-     "width":32
-    }, 
-    {
-     "gid":4,
-     "height":32,
-     "id":20,
-     "name":"cup",
-     "width":32
-    }, 
-    {
-     "gid":5,
-     "height":32,
-     "id":21,
-     "name":"chocolate",
-     "width":32
-    }, 
-    {
-     "gid":36,
-     "height":64,
-     "id":27,
-     "name":"snow_groomer_up",
-     "width":64
-    }, 
-    {
-     "gid":39,
-     "height":64,
-     "id":28,
-     "name":"snow_groomer_right",
-     "width":64
-    }, 
-    {
-     "gid":21,
-     "height":128,
-     "id":31,
-     "name":"finish",
-     "width":64
-    }, 
-    {
-     "gid":6,
-     "height":64,
-     "id":33,
-     "name":"fence_modern_90",
-     "width":64
-    }, 
-    {
-     "gid":7,
-     "height":64,
-     "id":34,
-     "name":"fence_modern_0",
-     "width":64
-    }, 
-    {
-     "gid":8,
-     "height":64,
-     "id":35,
-     "name":"fence_modern_135",
-     "width":64
-    }, 
-    {
-     "gid":9,
-     "height":64,
-     "id":36,
-     "name":"fence_modern_45",
-     "width":64
-    }, 
-    {
-     "gid":10,
-     "height":64,
-     "id":38,
-     "name":"fence_modern_45_long",
-     "width":64
-    }, 
-    {
-     "gid":11,
-     "height":64,
-     "id":39,
-     "name":"fence_old_90",
-     "width":64
-    }, 
-    {
-     "gid":13,
-     "height":64,
-     "id":40,
-     "name":"fence_old_135",
-     "width":64
-    }, 
-    {
-     "gid":12,
-     "height":64,
-     "id":43,
-     "name":"fence_old_0",
-     "width":64
-    }, 
-    {
-     "gid":14,
-     "height":64,
-     "id":44,
-     "name":"fence_old_45",
-     "width":64
-    }, 
-    {
-     "gid":15,
-     "height":64,
-     "id":45,
-     "name":"fence_old_45_long",
-     "width":64
-    }, 
-    {
-     "gid":16,
-     "height":64,
-     "id":46,
-     "name":"mat_long_0",
-     "width":64
-    }, 
-    {
-     "gid":17,
-     "height":64,
-     "id":47,
-     "name":"mat_short_0",
-     "width":64
-    }, 
-    {
-     "gid":18,
-     "height":64,
-     "id":48,
-     "name":"mat_long_90",
-     "width":64
-    }, 
-    {
-     "gid":19,
-     "height":64,
-     "id":49,
-     "name":"mat_short_90",
-     "width":64
-    }, 
-    {
-     "gid":24,
-     "height":64,
-     "id":50,
-     "name":"tree",
-     "width":64
-    }, 
-    {
-     "gid":25,
-     "height":64,
-     "id":51,
-     "name":"car",
-     "width":64
-    }, 
-    {
-     "gid":26,
-     "height":64,
-     "id":52,
-     "name":"pylon",
-     "width":64
-    }, 
-    {
-     "gid":27,
-     "height":64,
-     "id":53,
-     "name":"skull",
-     "width":64
-    }, 
-    {
-     "gid":28,
-     "height":64,
-     "id":54,
-     "name":"lift_gate",
-     "width":64
-    }, 
-    {
-     "gid":30,
-     "height":64,
-     "id":55,
-     "name":"sign_right",
-     "width":64
-    }, 
-    {
-     "gid":31,
-     "height":64,
-     "id":56,
-     "name":"sign_left",
-     "width":64
-    }, 
-    {
-     "gid":32,
-     "height":64,
-     "id":57,
-     "name":"gate_red",
-     "width":64
-    }, 
-    {
-     "gid":33,
-     "height":64,
-     "id":58,
-     "name":"gate_blue",
-     "width":64
-    }
-]
+keyToGidMap = {
+    'wax_green': 2,
+    'wax_pink': 3,
+    'cup': 4,
+    'chocolate': 5,
+    'snow_groomer_up': 36,
+    'snow_groomer_right': 39,
+    'finish': 21,
+    'fence_modern_90': 6,
+    'fence_modern_0': 7,
+    'fence_modern_135': 8,
+    'fence_modern_45': 9,
+    'fence_modern_45_long': 10,
+    'fence_old_90': 11,
+    'fence_old_135': 13,
+    'fence_old_0': 12,
+    'fence_old_45': 14,
+    'fence_old_45_long': 15,
+    'mat_long_0': 16,
+    'mat_short_0': 17,
+    'mat_long_90': 18,
+    'mat_short_90': 19,
+    'tree': 24,
+    'car': 25,
+    'pylon': 26,
+    'skull': 27,
+    'lift_gate': 28,
+    'sign_right': 30,
+    'sign_left': 31,
+    'gate_red': 32,
+    'gate_blue': 33
+}
 
 def readShort(stream):
     v, = struct.unpack('>h', stream.read(2))
@@ -321,24 +142,70 @@ def readSpriteTemplate(stream):
     }
     return data
     
-with open('01001') as f:
+def readLevel(stream):
     fixedSpriteCount = readShort(f)
+    fixedSprites = []
     for i in range(fixedSpriteCount):
-        print readFixedSprite(f)
+        fixedSprites.append(readFixedSprite(f))
         
     moveSpriteCount = readShort(f)
+    moveSprites = []
     for i in range(moveSpriteCount):
-        print readMoveSprite(f)
+        fixedSprites.append(readMoveSprite(f))
         
     bonusSpriteCount = readShort(f)
+    bonusSprites = []
     for i in range(bonusSpriteCount):
-        print readBonusSprite(f)
-    print len(f.read())
+        bonusSprites.append(readBonusSprite(f))
+        
+    assert (0 == len(f.read()))
     
-for name in os.listdir('.'):
-    print name
-    with open(name) as f:
-        print readSpriteTemplate(f)
+    return {
+        'fixedSprites': fixedSprites,
+        'moveSprites': moveSprites,
+        'bonusSprites': bonusSprites,
+    }
 
+def convertFixedSprite(sprite):
+    result = {
+        'gid': keyToGidMap[idToKeyMap[sprite['spriteID']]]
+    }
+    return result
+    
+def convertMoveSprite(sprite):
+    result = convertFixedSprite(sprite)
+    return result
+    
+def convertBonusSprite(sprite):
+    result = convertFixedSprite(sprite)
+    return result
+    
+def convertLevel(level):
+    sprites = []
+    for sprite in level['fixedSprites']:
+        sprites.append(convertFixedSprite(sprite))
+        
+    for sprite in level['moveSprites']:
+        sprites.append(convertMoveSprite(sprite))
+        
+    for sprite in level['moveSprites']:
+        sprites.append(convertBonusSprite(sprite))
+    return sprites
+    
+with open('01001') as f:
+    level = readLevel(f)
 
+objects = convertLevel(level)
+
+#for name in os.listdir('.'):
+#    print name
+#    with open(name) as f:
+#        readSpriteTemplate(f)
+
+with open('level_template.json.in') as f:
+    template = string.Template(f.read())
+    
+result = template.substitute(objects = json.dumps(objects))
+with open('../assets/level_0.json', 'w') as f:
+    f.write(result)
     
