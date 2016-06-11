@@ -38,7 +38,7 @@ $objects
          "x":0,
          "y":0
         }],
- "nextobjectid":59,
+ "nextobjectid":$nextobjectid,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

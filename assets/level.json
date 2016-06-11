@@ -82,6 +82,16 @@
                  "height":64,
                  "id":27,
                  "name":"snow_groomer_up",
+                 "properties":
+                    {
+                     "body.velocity.x":-3,
+                     "body.velocity.y":2
+                    },
+                 "propertytypes":
+                    {
+                     "body.velocity.x":"float",
+                     "body.velocity.y":"float"
+                    },
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -326,8 +336,8 @@
                  "type":"",
                  "visible":true,
                  "width":64,
-                 "x":441,
-                 "y":427
+                 "x":453,
+                 "y":395
                 }, 
                 {
                  "gid":28,
@@ -388,6 +398,30 @@
                  "width":64,
                  "x":128,
                  "y":257
+                }, 
+                {
+                 "gid":22,
+                 "height":64,
+                 "id":60,
+                 "name":"gras",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":444,
+                 "y":468
+                }, 
+                {
+                 "gid":23,
+                 "height":64,
+                 "id":61,
+                 "name":"ice",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":556,
+                 "y":351
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -396,7 +430,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":59,
+ "nextobjectid":62,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

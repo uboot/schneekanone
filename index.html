@@ -14,6 +14,11 @@
 
 <script type="text/javascript">
 var game = new Phaser.Game(640, 480, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+function createObjects(tilemap, gid, spritesheet, frame)
+{
+  tilemap.createFromObjects('sprites', gid, spritesheet, frame, true, false, spriteGroup);
+}
+
 function preload() {
   // https://gamedevacademy.org/html5-phaser-tutorial-top-down-games-with-tiled/
   // https://gist.github.com/jdfight/9646833f9bbdcb1104db
@@ -30,48 +35,54 @@ function preload() {
   
 }
 function create() {
+  game.physics.startSystem(Phaser.Physics.ARCADE);
+    
   var map = game.add.tilemap('level');
   map.createFromObjects('background', 1, 'background');
-  map.createFromObjects('sprites', 2, 'bonus_sprites', 0);
-  map.createFromObjects('sprites', 3, 'bonus_sprites', 1);
-  map.createFromObjects('sprites', 4, 'bonus_sprites', 2);
-  map.createFromObjects('sprites', 5, 'bonus_sprites', 3);
-  map.createFromObjects('sprites', 6, 'fence', 0);
-  map.createFromObjects('sprites', 7, 'fence', 1);
-  map.createFromObjects('sprites', 8, 'fence', 2);
-  map.createFromObjects('sprites', 9, 'fence', 3);
-  map.createFromObjects('sprites', 10, 'fence', 4);
-  map.createFromObjects('sprites', 11, 'fence', 5);
-  map.createFromObjects('sprites', 12, 'fence', 6);
-  map.createFromObjects('sprites', 13, 'fence', 7);
-  map.createFromObjects('sprites', 14, 'fence', 8);
-  map.createFromObjects('sprites', 15, 'fence', 9);
-  map.createFromObjects('sprites', 16, 'fence', 10);
-  map.createFromObjects('sprites', 17, 'fence', 11);
-  map.createFromObjects('sprites', 18, 'fence', 12);
-  map.createFromObjects('sprites', 19, 'fence', 13);
-  map.createFromObjects('sprites', 24, 'obstacles', 0);
-  map.createFromObjects('sprites', 25, 'obstacles', 1);
-  map.createFromObjects('sprites', 26, 'obstacles', 2);
-  map.createFromObjects('sprites', 27, 'obstacles', 3);
-  map.createFromObjects('sprites', 28, 'obstacles', 4);
-  map.createFromObjects('sprites', 30, 'obstacles', 6);
-  map.createFromObjects('sprites', 31, 'obstacles', 7);
-  map.createFromObjects('sprites', 36, 'snow_groomer', 0);
-  map.createFromObjects('sprites', 39, 'snow_groomer', 3);
-  map.createFromObjects('sprites', 21, 'finish');
   
-  game.world.iterate('name', 'snow_groomer_up', Phaser.RETURN_NONE, function(child) {
+  spriteGroup = game.add.group();
+  spriteGroup.enableBody = true;
+  createObjects(map, 2, 'bonus_sprites', 0);
+  createObjects(map, 2, 'bonus_sprites', 0);
+  createObjects(map, 3, 'bonus_sprites', 1);
+  createObjects(map, 4, 'bonus_sprites', 2);
+  createObjects(map, 5, 'bonus_sprites', 3);
+  createObjects(map, 6, 'fence', 0);
+  createObjects(map, 7, 'fence', 1);
+  createObjects(map, 8, 'fence', 2);
+  createObjects(map, 9, 'fence', 3);
+  createObjects(map, 10, 'fence', 4);
+  createObjects(map, 11, 'fence', 5);
+  createObjects(map, 12, 'fence', 6);
+  createObjects(map, 13, 'fence', 7);
+  createObjects(map, 14, 'fence', 8);
+  createObjects(map, 15, 'fence', 9);
+  createObjects(map, 16, 'fence', 10);
+  createObjects(map, 17, 'fence', 11);
+  createObjects(map, 18, 'fence', 12);
+  createObjects(map, 19, 'fence', 13);
+  createObjects(map, 24, 'obstacles', 0);
+  createObjects(map, 25, 'obstacles', 1);
+  createObjects(map, 26, 'obstacles', 2);
+  createObjects(map, 27, 'obstacles', 3);
+  createObjects(map, 28, 'obstacles', 4);
+  createObjects(map, 30, 'obstacles', 6);
+  createObjects(map, 31, 'obstacles', 7);
+  createObjects(map, 36, 'snow_groomer', 0);
+  createObjects(map, 39, 'snow_groomer', 3);
+  createObjects(map, 21, 'finish');
+  
+  spriteGroup.iterate('name', 'snow_groomer_up', Phaser.RETURN_NONE, function(child) {
     child.animations.add('move', [0, 1, 2], 3, true);
     child.animations.play('move');
   });
   
-  game.world.iterate('name', 'snow_groomer_right', Phaser.RETURN_NONE, function(child) {
+  spriteGroup.iterate('name', 'snow_groomer_right', Phaser.RETURN_NONE, function(child) {
     child.animations.add('move', [5, 4, 3], 3, true);
     child.animations.play('move');
   });
   
-  game.world.iterate('name', 'lift_gate', Phaser.RETURN_NONE, function(child) {
+  spriteGroup.iterate('name', 'lift_gate', Phaser.RETURN_NONE, function(child) {
     child.animations.add('move', [4, 5], 1, true);
     child.animations.play('move');
   });
