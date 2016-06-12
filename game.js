@@ -1,4 +1,7 @@
+FRAMES_PER_SECOND = 10.0
+
 var game = new Phaser.Game(640, 480, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+
 function createObjects(tilemap, gid, spritesheet, frame)
 {
   tilemap.createFromObjects('sprites', gid, spritesheet, frame, true, false, spriteGroup);
@@ -59,17 +62,17 @@ function create() {
   createObjects(map, 21, 'finish');
   
   spriteGroup.iterate('name', 'snow_groomer_up', Phaser.RETURN_NONE, function(child) {
-    child.animations.add('move', [0, 1, 2], 3, true);
+    child.animations.add('move', [0, 1, 2], FRAMES_PER_SECOND / 5, true);
     child.animations.play('move');
   });
   
   spriteGroup.iterate('name', 'snow_groomer_right', Phaser.RETURN_NONE, function(child) {
-    child.animations.add('move', [5, 4, 3], 3, true);
+    child.animations.add('move', [5, 4, 3], FRAMES_PER_SECOND / 5, true);
     child.animations.play('move');
   });
   
   spriteGroup.iterate('name', 'lift_gate', Phaser.RETURN_NONE, function(child) {
-    child.animations.add('move', [4, 5], 1, true);
+    child.animations.add('move', [4, 5], FRAMES_PER_SECOND / 100, true);
     child.animations.play('move');
   });
 }
