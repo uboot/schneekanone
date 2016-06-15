@@ -1,10 +1,24 @@
 FRAMES_PER_SECOND = 10.0
+PLAYER_FAR_RIGHT_FRAME = 1
+PLAYER_FAR_LEFT_FRAME = 9
 
-var game = new Phaser.Game(640, 480, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+function SchneeSprite(game, x, y, key, frame) {
+  Phaser.Sprite.call(this, game, x, y, key, frame);
+}
+
+SchneeSprite.prototype = Object.create(Phaser.Sprite.prototype, {
+});
+
+var game = new Phaser.Game(640, 480, Phaser.AUTO, '', { 
+  preload: preload, 
+  create: create, 
+  update: update 
+});
 
 function createObjects(tilemap, gid, spritesheet, frame)
 {
-  tilemap.createFromObjects('sprites', gid, spritesheet, frame, true, false, spriteGroup);
+  tilemap.createFromObjects('sprites', gid, spritesheet, frame, true, false,
+                            spriteGroup, SchneeSprite);
 }
 
 function preload() {
@@ -20,7 +34,6 @@ function preload() {
   
   game.load.image('background', 'assets/background.png');
   game.load.image('finish', 'assets/finish.png');
-  
 }
 
 function create() {
@@ -75,7 +88,64 @@ function create() {
     child.animations.add('move', [4, 5], FRAMES_PER_SECOND / 100, true);
     child.animations.play('move');
   });
+  
+  game.add.sprite(529, 305, 'finish', 0, spriteGroup);
+  player = game.add.sprite(50, 20, 'player', 5, spriteGroup);
+  player.body.velocity.x = 3 * FRAMES_PER_SECOND;
+  player.body.velocity.y = 2 * FRAMES_PER_SECOND;
+  
+  cursors = game.input.keyboard.createCursorKeys();
+}
+
+function updateVelocity()
+{
+  var velocity = new Phaser.Point();
+  switch (player.frame) {
+    case 1:
+      velocity.set(-2 * FRAMES_PER_SECOND, 3 * FRAMES_PER_SECOND);
+      break;
+    case 2:
+      velocity.set(-FRAMES_PER_SECOND, 3 * FRAMES_PER_SECOND);
+      break;
+    case 3:
+      velocity.set(0, FRAMES_PER_SECOND);
+      break;
+    case 4:
+      velocity.set(FRAMES_PER_SECOND, 3 * FRAMES_PER_SECOND);
+      break;
+    case 5:
+      velocity.set(3 * FRAMES_PER_SECOND, 2 * FRAMES_PER_SECOND);
+      break;
+    case 6:
+      velocity.set(3 * FRAMES_PER_SECOND, FRAMES_PER_SECOND);
+      break;
+    case 7:
+      velocity.set(FRAMES_PER_SECOND, 0);
+      break;
+    case 8:
+      velocity.set(3 * FRAMES_PER_SECOND, -FRAMES_PER_SECOND);
+      break;
+    case 9:
+      velocity.set(3 * FRAMES_PER_SECOND, -2 * FRAMES_PER_SECOND);
+      break;
+  }
+  
+  player.body.velocity = velocity;
 }
 
 function update() {
+  if (cursors.left.isDown)
+  {
+    if (player.frame > PLAYER_FAR_RIGHT_FRAME) {
+      player.frame--;
+      updateVelocity();
+    }
+  }
+  else if (cursors.right.isDown)
+  {
+    if (player.frame < PLAYER_FAR_LEFT_FRAME) {
+      player.frame++;
+      updateVelocity();
+    }
+  }  
 }

@@ -405,11 +405,11 @@ with open('01000') as f:
 
 objects = convertLevel(level)
 
-import os
-for name in os.listdir('.'):
-    print name
-    with open(name) as f:
-        print readSpriteTemplate(f)
+#import os
+#for name in os.listdir('.'):
+#    print name
+#    with open(name) as f:
+#        print readSpriteTemplate(f)
 
 with open('level_template.json.in') as f:
     template = string.Template(f.read())
