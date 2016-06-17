@@ -91,8 +91,11 @@ function create() {
   
   game.add.sprite(529, 305, 'finish', 0, spriteGroup);
   player = game.add.sprite(50, 20, 'player', 5, spriteGroup);
+  player.animations.add('turn_left', [1, 2, 3, 4, 5, 6, 7, 8, 9], 5);
+  player.animations.add('turn_right', [9, 8, 7, 6, 5, 4, 3, 2, 1], 5);
   player.body.velocity.x = 3 * FRAMES_PER_SECOND;
   player.body.velocity.y = 2 * FRAMES_PER_SECOND;
+  
   
   cursors = game.input.keyboard.createCursorKeys();
 }
@@ -134,18 +137,17 @@ function updateVelocity()
 }
 
 function update() {
-  if (cursors.left.isDown)
+  if (cursors.left.isDown && !player.animations.getAnimation('turn_right').isPlaying)
   {
-    if (player.frame > PLAYER_FAR_RIGHT_FRAME) {
-      player.frame--;
-      updateVelocity();
-    }
+    var currentFrame = player.frame;
+    player.play('turn_right');
+    player.animations.getAnimation('turn_right').setFrame(currentFrame);
+  } else if (cursors.right.isDown && !player.animations.getAnimation('turn_left').isPlaying) {
+    var currentFrame = player.frame;
+    player.play('turn_left');
+    player.animations.getAnimation('turn_left').setFrame(currentFrame);
+  } else if (!cursors.left.isDown && !cursors.right.isDown) {
+    player.animations.stop('turn_left');
+    player.animations.stop('turn_right');
   }
-  else if (cursors.right.isDown)
-  {
-    if (player.frame < PLAYER_FAR_LEFT_FRAME) {
-      player.frame++;
-      updateVelocity();
-    }
-  }  
 }
