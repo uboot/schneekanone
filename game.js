@@ -15,22 +15,28 @@ var game = new Phaser.Game(640, 480, Phaser.AUTO, '', {
   update: update 
 });
 
-function createObjects(tilemap, gid, spritesheet, frame)
-{
+function createObjects(tilemap, gid, spritesheet, frame) {
   tilemap.createFromObjects('sprites', gid, spritesheet, frame, true, false,
                             spriteGroup, SchneeSprite);
+}
+
+function loadSpritesheet(key, frameWidth, frameHeight) {
+  var url = 'assets/' + key + '.png';
+  var maskUrl = 'assets/' + key + '_mask.png';
+  game.load.spritesheet(key, url, frameWidth, frameHeight);
+  game.load.spritesheet(key + '_mask', maskUrl, frameWidth, frameHeight);
 }
 
 function preload() {
   // https://gamedevacademy.org/html5-phaser-tutorial-top-down-games-with-tiled/
   // https://gist.github.com/jdfight/9646833f9bbdcb1104db
   game.load.tilemap('level', 'assets/level_1.json', null, Phaser.Tilemap.TILED_JSON);
-  game.load.spritesheet('bonus_sprites', 'assets/bonus_sprites.png', 32, 32);
-  game.load.spritesheet('fence', 'assets/fence.png', 64, 64);
-  game.load.spritesheet('snow_groomer', 'assets/snow_groomer.png', 64, 64);
-  game.load.spritesheet('ground', 'assets/ground.png', 64, 64);
-  game.load.spritesheet('obstacles', 'assets/obstacles.png', 64, 64);
-  game.load.spritesheet('player', 'assets/player.png', 35, 64);
+  loadSpritesheet('bonus_sprites', 32, 32);
+  loadSpritesheet('fence', 64, 64);
+  loadSpritesheet('snow_groomer',  64, 64);
+  loadSpritesheet('ground', 64, 64);
+  loadSpritesheet('obstacles', 64, 64);
+  loadSpritesheet('player', 35, 64);
   
   game.load.image('background', 'assets/background.png');
   game.load.image('finish', 'assets/finish.png');
