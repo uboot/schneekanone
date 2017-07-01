@@ -22,24 +22,22 @@ function createObjects(tilemap, gid, spritesheet, frame) {
 
 function loadSpritesheet(key, frameWidth, frameHeight) {
   var url = 'assets/' + key + '.png';
-  var maskUrl = 'assets/' + key + '_mask.png';
   game.load.spritesheet(key, url, frameWidth, frameHeight);
-  game.load.spritesheet(key + '_mask', maskUrl, frameWidth, frameHeight);
 }
 
 function preload() {
   // https://gamedevacademy.org/html5-phaser-tutorial-top-down-games-with-tiled/
   // https://gist.github.com/jdfight/9646833f9bbdcb1104db
-  game.load.tilemap('level', 'assets/level_1.json', null, Phaser.Tilemap.TILED_JSON);
+  game.load.tilemap('level', 'assets/level.json', null, Phaser.Tilemap.TILED_JSON);
   loadSpritesheet('bonus_sprites', 32, 32);
   loadSpritesheet('fence', 64, 64);
   loadSpritesheet('snow_groomer',  64, 64);
   loadSpritesheet('ground', 64, 64);
   loadSpritesheet('obstacles', 64, 64);
   loadSpritesheet('player', 35, 64);
+  loadSpritesheet('finish', 64, 128);
   
   game.load.image('background', 'assets/background.png');
-  game.load.image('finish', 'assets/finish.png');
 }
 
 function create() {
@@ -50,7 +48,6 @@ function create() {
   
   spriteGroup = game.add.group();
   spriteGroup.enableBody = true;
-  createObjects(map, 2, 'bonus_sprites', 0);
   createObjects(map, 2, 'bonus_sprites', 0);
   createObjects(map, 3, 'bonus_sprites', 1);
   createObjects(map, 4, 'bonus_sprites', 2);
@@ -95,13 +92,14 @@ function create() {
     child.animations.play('move');
   });
   
+  // the finish is usually not part of the level file
   game.add.sprite(529, 305, 'finish', 0, spriteGroup);
+  
   player = game.add.sprite(50, 20, 'player', 5, spriteGroup);
   player.animations.add('turn_left', [1, 2, 3, 4, 5, 6, 7, 8, 9], 5);
   player.animations.add('turn_right', [9, 8, 7, 6, 5, 4, 3, 2, 1], 5);
   player.body.velocity.x = 3 * FRAMES_PER_SECOND;
   player.body.velocity.y = 2 * FRAMES_PER_SECOND;
-  
   
   cursors = game.input.keyboard.createCursorKeys();
 }
