@@ -7,7 +7,7 @@ module.exports = function(grunt) {
       server: {
         options: {
           port: 9001,
-          base: '.',
+          base: ['.', 'node_modules/phaser-ce/build'],
           livereload: true
         }
       }
@@ -29,5 +29,5 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('default', ['connect', 'watch']);
-
+  
 };

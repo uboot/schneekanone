@@ -13,5 +13,8 @@
     "grunt-cli": "^1.2.0",
     "grunt-contrib-connect": "^1.0.2",
     "grunt-contrib-watch": "^1.0.0"
+  },
+  "dependencies": {
+    "phaser-ce": "^2.8.1"
   }
 }

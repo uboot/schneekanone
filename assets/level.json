@@ -474,7 +474,7 @@
          "margin":0,
          "name":"fence",
          "spacing":0,
-         "tilecount":15,
+         "tilecount":14,
          "tileheight":64,
          "tilewidth":64
         }, 

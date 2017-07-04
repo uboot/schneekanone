@@ -29,6 +29,7 @@ function preload() {
   // https://gamedevacademy.org/html5-phaser-tutorial-top-down-games-with-tiled/
   // https://gist.github.com/jdfight/9646833f9bbdcb1104db
   game.load.tilemap('level', 'assets/level.json', null, Phaser.Tilemap.TILED_JSON);
+
   loadSpritesheet('bonus_sprites', 32, 32);
   loadSpritesheet('fence', 64, 64);
   loadSpritesheet('snow_groomer',  64, 64);
@@ -38,16 +39,19 @@ function preload() {
   loadSpritesheet('finish', 64, 128);
   
   game.load.image('background', 'assets/background.png');
+  game.load.physics('physics', 'assets/sprites.json');
 }
 
 function create() {
-  game.physics.startSystem(Phaser.Physics.ARCADE);
+  game.physics.startSystem(Phaser.Physics.P2JS);
     
   var map = game.add.tilemap('level');
   map.createFromObjects('background', 1, 'background');
   
   spriteGroup = game.add.group();
   spriteGroup.enableBody = true;
+  spriteGroup.physicsBodyType = Phaser.Physics.P2JS;
+
   createObjects(map, 2, 'bonus_sprites', 0);
   createObjects(map, 3, 'bonus_sprites', 1);
   createObjects(map, 4, 'bonus_sprites', 2);
@@ -76,7 +80,8 @@ function create() {
   createObjects(map, 36, 'snow_groomer', 0);
   createObjects(map, 39, 'snow_groomer', 3);
   createObjects(map, 21, 'finish');
-  
+
+  // add animations
   spriteGroup.iterate('name', 'snow_groomer_up', Phaser.RETURN_NONE, function(child) {
     child.animations.add('move', [0, 1, 2], FRAMES_PER_SECOND / 5, true);
     child.animations.play('move');
@@ -91,15 +96,23 @@ function create() {
     child.animations.add('move', [4, 5], FRAMES_PER_SECOND / 100, true);
     child.animations.play('move');
   });
-  
+
   // the finish is usually not part of the level file
-  game.add.sprite(529, 305, 'finish', 0, spriteGroup);
+  var finish = game.add.sprite(529, 305, 'finish', 0, spriteGroup);
+  finish.name = 'finish'
+
+  // load the body polygons
+  spriteGroup.forEach(function(child) {
+    child.body.motionState = Phaser.Physics.P2.Body.STATIC;
+    child.body.loadPolygon('physics', child.name);
+  });
   
   player = game.add.sprite(50, 20, 'player', 5, spriteGroup);
   player.animations.add('turn_left', [1, 2, 3, 4, 5, 6, 7, 8, 9], 5);
   player.animations.add('turn_right', [9, 8, 7, 6, 5, 4, 3, 2, 1], 5);
   player.body.velocity.x = 3 * FRAMES_PER_SECOND;
   player.body.velocity.y = 2 * FRAMES_PER_SECOND;
+  player.body.motionState = Phaser.Physics.P2.Body.STATIC;
   
   cursors = game.input.keyboard.createCursorKeys();
 }
