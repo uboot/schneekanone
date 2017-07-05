@@ -1,314 +1,442 @@
-{ "height":100,
- "layers":[
+{
+  "layers": [
+    {
+      "opacity": 1, 
+      "name": "background", 
+      "width": 0, 
+      "height": 0, 
+      "visible": true, 
+      "objects": [
         {
-         "draworder":"topdown",
-         "height":0,
-         "name":"background",
-         "objects":[
-                {
-                 "gid":1,
-                 "height":480,
-                 "id":1,
-                 "name":"background",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":640,
-                 "x":0,
-                 "y":480
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "width":0,
-         "x":0,
-         "y":0
+          "name": "background", 
+          "width": 640, 
+          "height": 480, 
+          "visible": true, 
+          "gid": 1, 
+          "y": 480, 
+          "x": 0, 
+          "rotation": 0, 
+          "type": "", 
+          "id": 1
+        }
+      ], 
+      "draworder": "topdown", 
+      "y": 0, 
+      "x": 0, 
+      "type": "objectgroup"
+    }, 
+    {
+      "opacity": 1, 
+      "name": "sprites", 
+      "width": 0, 
+      "height": 0, 
+      "visible": true, 
+      "objects": [
+        {
+          "width": 64, 
+          "gid": 13, 
+          "name": "fence_old_135", 
+          "visible": true, 
+          "y": 257, 
+          "x": 101, 
+          "rotation": 0, 
+          "id": 2, 
+          "height": 64
         }, 
         {
-         "draworder":"topdown",
-         "height":0,
-         "name":"sprites",
-         "objects":
-[{"width": 64, "gid": 13, "name": "fence_old_135", "visible": true, "y": 257, "x": 101, "rotation": 0, "id": 2, "height": 64}, {"width": 64, "gid": 13, "name": "fence_old_135", "visible": true, "y": 251, "x": 129, "rotation": 0, "id": 3, "height": 64}, {"width": 64, "gid": 13, "name": "fence_old_135", "visible": true, "y": 245, "x": 157, "rotation": 0, "id": 4, "height": 64}, {"width": 64, "gid": 24, "name": "tree", "visible": true, "y": 204, "x": 184, "rotation": 0, "id": 5, "height": 64}, {"width": 64, "gid": 24, "name": "tree", "visible": true, "y": 144, "x": 244, "rotation": 0, "id": 6, "height": 64}, {"width": 64, "gid": 15, "name": "fence_old_45_long", "visible": true, "y": 124, "x": 269, "rotation": 0, "id": 7, "height": 64}, {"width": 64, "gid": 23, "name": "ice", "visible": true, "y": 217, "x": 227, "rotation": 0, "id": 8, "height": 64}, {"width": 64, "gid": 30, "name": "sign_right", "visible": true, "y": 290, "x": 366, "rotation": 0, "id": 9, "height": 64}, {"width": 64, "gid": 23, "name": "ice", "visible": true, "y": 289, "x": 326, "rotation": 0, "id": 10, "height": 64}, {"name": "snow_groomer_right", "visible": true, "id": 11, "height": 64, "width": 64, "gid": 39, "y": 169, "x": 292, "rotation": 0, "propertytypes": {"body.velocity.x": "float", "body.velocity.y": "float"}, "properties": {"body.velocity.x": -3.3333333333333335, "body.velocity.y": 3.3333333333333335}}, {"width": 32, "gid": 5, "name": "chocolate", "visible": true, "y": 259, "x": 334, "rotation": 0, "id": 12, "height": 32}]
-                ,
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "width":0,
-         "x":0,
-         "y":0
-        }],
- "nextobjectid":13,
- "orientation":"orthogonal",
- "renderorder":"right-down",
- "tileheight":32,
- "tilesets":[
-        {
-         "columns":0,
-         "firstgid":1,
-         "margin":0,
-         "name":"background",
-         "spacing":0,
-         "tilecount":1,
-         "tileheight":480,
-         "tiles":
-            {
-             "0":
-                {
-                 "image":"background.png"
-                }
-            },
-         "tilewidth":640
+          "width": 64, 
+          "gid": 13, 
+          "name": "fence_old_135", 
+          "visible": true, 
+          "y": 251, 
+          "x": 129, 
+          "rotation": 0, 
+          "id": 3, 
+          "height": 64
         }, 
         {
-         "columns":4,
-         "firstgid":2,
-         "image":"bonus_sprites.png",
-         "imageheight":32,
-         "imagewidth":128,
-         "margin":0,
-         "name":"bonus_sprites",
-         "spacing":0,
-         "tilecount":4,
-         "tileheight":32,
-         "tilewidth":32
+          "width": 64, 
+          "gid": 13, 
+          "name": "fence_old_135", 
+          "visible": true, 
+          "y": 245, 
+          "x": 157, 
+          "rotation": 0, 
+          "id": 4, 
+          "height": 64
         }, 
         {
-         "columns":5,
-         "firstgid":6,
-         "image":"fence.png",
-         "imageheight":192,
-         "imagewidth":320,
-         "margin":0,
-         "name":"fence",
-         "spacing":0,
-         "tilecount":14,
-         "tileheight":64,
-         "tilewidth":64
+          "width": 64, 
+          "gid": 24, 
+          "name": "tree", 
+          "visible": true, 
+          "y": 204, 
+          "x": 184, 
+          "rotation": 0, 
+          "id": 5, 
+          "height": 64
         }, 
         {
-         "columns":1,
-         "firstgid":21,
-         "image":"finish.png",
-         "imageheight":128,
-         "imagewidth":64,
-         "margin":0,
-         "name":"finish",
-         "spacing":0,
-         "tilecount":1,
-         "tileheight":128,
-         "tilewidth":64
+          "width": 64, 
+          "gid": 24, 
+          "name": "tree", 
+          "visible": true, 
+          "y": 144, 
+          "x": 244, 
+          "rotation": 0, 
+          "id": 6, 
+          "height": 64
         }, 
         {
-         "columns":2,
-         "firstgid":22,
-         "image":"ground.png",
-         "imageheight":64,
-         "imagewidth":128,
-         "margin":0,
-         "name":"ground",
-         "spacing":0,
-         "tilecount":2,
-         "tileheight":64,
-         "tiles":
-            {
-             "0":
-                {
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "height":0,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":0,
-                             "id":1,
-                             "name":"",
-                             "polygon":[
-                                    {
-                                     "x":0,
-                                     "y":0
-                                    }, 
-                                    {
-                                     "x":16.5,
-                                     "y":2.75
-                                    }, 
-                                    {
-                                     "x":27.75,
-                                     "y":0
-                                    }, 
-                                    {
-                                     "x":40,
-                                     "y":-13
-                                    }, 
-                                    {
-                                     "x":43.75,
-                                     "y":-15.5
-                                    }, 
-                                    {
-                                     "x":43.25,
-                                     "y":-29.75
-                                    }, 
-                                    {
-                                     "x":30.75,
-                                     "y":-36.5
-                                    }, 
-                                    {
-                                     "x":24,
-                                     "y":-35.75
-                                    }, 
-                                    {
-                                     "x":15.5,
-                                     "y":-29
-                                    }, 
-                                    {
-                                     "x":1,
-                                     "y":-28.75
-                                    }, 
-                                    {
-                                     "x":-7,
-                                     "y":-9.75
-                                    }, 
-                                    {
-                                     "x":-6,
-                                     "y":-2.25
-                                    }],
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":0,
-                             "x":7.75,
-                             "y":36
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "width":0,
-                     "x":0,
-                     "y":0
-                    }
-                }
-            },
-         "tilewidth":64
+          "width": 64, 
+          "gid": 15, 
+          "name": "fence_old_45_long", 
+          "visible": true, 
+          "y": 124, 
+          "x": 269, 
+          "rotation": 0, 
+          "id": 7, 
+          "height": 64
         }, 
         {
-         "columns":4,
-         "firstgid":24,
-         "image":"obstacles.png",
-         "imageheight":192,
-         "imagewidth":256,
-         "margin":0,
-         "name":"obstacles",
-         "spacing":0,
-         "tilecount":12,
-         "tileheight":64,
-         "tilewidth":64
+          "width": 64, 
+          "gid": 23, 
+          "name": "ice", 
+          "visible": true, 
+          "y": 217, 
+          "x": 227, 
+          "rotation": 0, 
+          "id": 8, 
+          "height": 64
         }, 
         {
-         "columns":3,
-         "firstgid":36,
-         "image":"snow_groomer.png",
-         "imageheight":128,
-         "imagewidth":192,
-         "margin":0,
-         "name":"snow_groomer",
-         "spacing":0,
-         "tilecount":6,
-         "tileheight":64,
-         "tiles":
-            {
-             "0":
-                {
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "height":0,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":0,
-                             "id":1,
-                             "name":"",
-                             "polygon":[
-                                    {
-                                     "x":0,
-                                     "y":0
-                                    }, 
-                                    {
-                                     "x":20.5,
-                                     "y":-20
-                                    }, 
-                                    {
-                                     "x":-15,
-                                     "y":-45.25
-                                    }, 
-                                    {
-                                     "x":-35.25,
-                                     "y":-23.75
-                                    }],
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":0,
-                             "x":42,
-                             "y":63.5
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "width":0,
-                     "x":0,
-                     "y":0
-                    }
-                },
-             "3":
-                {
-                 "objectgroup":
-                    {
-                     "draworder":"index",
-                     "height":0,
-                     "name":"",
-                     "objects":[
-                            {
-                             "height":0,
-                             "id":1,
-                             "name":"",
-                             "polygon":[
-                                    {
-                                     "x":0,
-                                     "y":0
-                                    }, 
-                                    {
-                                     "x":28,
-                                     "y":-27.75
-                                    }, 
-                                    {
-                                     "x":3.5,
-                                     "y":-47
-                                    }, 
-                                    {
-                                     "x":-26.25,
-                                     "y":-17.75
-                                    }],
-                             "rotation":0,
-                             "type":"",
-                             "visible":true,
-                             "width":0,
-                             "x":31.25,
-                             "y":52.25
-                            }],
-                     "opacity":1,
-                     "type":"objectgroup",
-                     "visible":true,
-                     "width":0,
-                     "x":0,
-                     "y":0
-                    }
-                }
-            },
-         "tilewidth":64
-        }],
- "tilewidth":32,
- "version":1,
- "width":100
+          "width": 64, 
+          "gid": 30, 
+          "name": "sign_right", 
+          "visible": true, 
+          "y": 290, 
+          "x": 366, 
+          "rotation": 0, 
+          "id": 9, 
+          "height": 64
+        }, 
+        {
+          "width": 64, 
+          "gid": 23, 
+          "name": "ice", 
+          "visible": true, 
+          "y": 289, 
+          "x": 326, 
+          "rotation": 0, 
+          "id": 10, 
+          "height": 64
+        }, 
+        {
+          "name": "snow_groomer_right", 
+          "visible": true, 
+          "id": 11, 
+          "height": 64, 
+          "width": 64, 
+          "gid": 39, 
+          "y": 169, 
+          "x": 292, 
+          "rotation": 0, 
+          "propertytypes": {
+            "body.velocity.x": "float", 
+            "body.velocity.y": "float"
+          }, 
+          "properties": {
+            "body.velocity.x": -3.3333333333333335, 
+            "body.velocity.y": 3.3333333333333335
+          }
+        }, 
+        {
+          "width": 32, 
+          "gid": 5, 
+          "name": "chocolate", 
+          "visible": true, 
+          "y": 259, 
+          "x": 334, 
+          "rotation": 0, 
+          "id": 12, 
+          "height": 32
+        }
+      ], 
+      "draworder": "topdown", 
+      "y": 0, 
+      "x": 0, 
+      "type": "objectgroup"
+    }
+  ], 
+  "orientation": "orthogonal", 
+  "tileheight": 32, 
+  "tilewidth": 32, 
+  "height": 100, 
+  "width": 100, 
+  "renderorder": "right-down", 
+  "version": 1, 
+  "tilesets": [
+    {
+      "tiles": {
+        "0": {
+          "image": "background.png"
+        }
+      }, 
+      "name": "background", 
+      "tileheight": 480, 
+      "tilewidth": 640, 
+      "spacing": 0, 
+      "tilecount": 1, 
+      "firstgid": 1, 
+      "margin": 0, 
+      "columns": 0
+    }, 
+    {
+      "name": "bonus_sprites", 
+      "tileheight": 32, 
+      "tilewidth": 32, 
+      "image": "bonus_sprites.png", 
+      "spacing": 0, 
+      "tilecount": 4, 
+      "imageheight": 32, 
+      "imagewidth": 128, 
+      "firstgid": 2, 
+      "margin": 0, 
+      "columns": 4
+    }, 
+    {
+      "name": "fence", 
+      "tileheight": 64, 
+      "tilewidth": 64, 
+      "image": "fence.png", 
+      "spacing": 0, 
+      "tilecount": 14, 
+      "imageheight": 192, 
+      "imagewidth": 320, 
+      "firstgid": 6, 
+      "margin": 0, 
+      "columns": 5
+    }, 
+    {
+      "name": "finish", 
+      "tileheight": 128, 
+      "tilewidth": 64, 
+      "image": "finish.png", 
+      "spacing": 0, 
+      "tilecount": 1, 
+      "imageheight": 128, 
+      "imagewidth": 64, 
+      "firstgid": 21, 
+      "margin": 0, 
+      "columns": 1
+    }, 
+    {
+      "tiles": {
+        "0": {
+          "objectgroup": {
+            "opacity": 1, 
+            "name": "", 
+            "width": 0, 
+            "height": 0, 
+            "visible": true, 
+            "objects": [
+              {
+                "polygon": [
+                  {
+                    "y": 0, 
+                    "x": 0
+                  }, 
+                  {
+                    "y": 2.75, 
+                    "x": 16.5
+                  }, 
+                  {
+                    "y": 0, 
+                    "x": 27.75
+                  }, 
+                  {
+                    "y": -13, 
+                    "x": 40
+                  }, 
+                  {
+                    "y": -15.5, 
+                    "x": 43.75
+                  }, 
+                  {
+                    "y": -29.75, 
+                    "x": 43.25
+                  }, 
+                  {
+                    "y": -36.5, 
+                    "x": 30.75
+                  }, 
+                  {
+                    "y": -35.75, 
+                    "x": 24
+                  }, 
+                  {
+                    "y": -29, 
+                    "x": 15.5
+                  }, 
+                  {
+                    "y": -28.75, 
+                    "x": 1
+                  }, 
+                  {
+                    "y": -9.75, 
+                    "x": -7
+                  }, 
+                  {
+                    "y": -2.25, 
+                    "x": -6
+                  }
+                ], 
+                "width": 0, 
+                "height": 0, 
+                "visible": true, 
+                "y": 36, 
+                "x": 7.75, 
+                "rotation": 0, 
+                "type": "", 
+                "id": 1, 
+                "name": ""
+              }
+            ], 
+            "draworder": "index", 
+            "y": 0, 
+            "x": 0, 
+            "type": "objectgroup"
+          }
+        }
+      }, 
+      "name": "ground", 
+      "tileheight": 64, 
+      "tilewidth": 64, 
+      "image": "ground.png", 
+      "spacing": 0, 
+      "tilecount": 2, 
+      "imageheight": 64, 
+      "imagewidth": 128, 
+      "firstgid": 22, 
+      "margin": 0, 
+      "columns": 2
+    }, 
+    {
+      "name": "obstacles", 
+      "tileheight": 64, 
+      "tilewidth": 64, 
+      "image": "obstacles.png", 
+      "spacing": 0, 
+      "tilecount": 12, 
+      "imageheight": 192, 
+      "imagewidth": 256, 
+      "firstgid": 24, 
+      "margin": 0, 
+      "columns": 4
+    }, 
+    {
+      "tiles": {
+        "0": {
+          "objectgroup": {
+            "opacity": 1, 
+            "name": "", 
+            "width": 0, 
+            "height": 0, 
+            "visible": true, 
+            "objects": [
+              {
+                "polygon": [
+                  {
+                    "y": 0, 
+                    "x": 0
+                  }, 
+                  {
+                    "y": -20, 
+                    "x": 20.5
+                  }, 
+                  {
+                    "y": -45.25, 
+                    "x": -15
+                  }, 
+                  {
+                    "y": -23.75, 
+                    "x": -35.25
+                  }
+                ], 
+                "width": 0, 
+                "height": 0, 
+                "visible": true, 
+                "y": 63.5, 
+                "x": 42, 
+                "rotation": 0, 
+                "type": "", 
+                "id": 1, 
+                "name": ""
+              }
+            ], 
+            "draworder": "index", 
+            "y": 0, 
+            "x": 0, 
+            "type": "objectgroup"
+          }
+        }, 
+        "3": {
+          "objectgroup": {
+            "opacity": 1, 
+            "name": "", 
+            "width": 0, 
+            "height": 0, 
+            "visible": true, 
+            "objects": [
+              {
+                "polygon": [
+                  {
+                    "y": 0, 
+                    "x": 0
+                  }, 
+                  {
+                    "y": -27.75, 
+                    "x": 28
+                  }, 
+                  {
+                    "y": -47, 
+                    "x": 3.5
+                  }, 
+                  {
+                    "y": -17.75, 
+                    "x": -26.25
+                  }
+                ], 
+                "width": 0, 
+                "height": 0, 
+                "visible": true, 
+                "y": 52.25, 
+                "x": 31.25, 
+                "rotation": 0, 
+                "type": "", 
+                "id": 1, 
+                "name": ""
+              }
+            ], 
+            "draworder": "index", 
+            "y": 0, 
+            "x": 0, 
+            "type": "objectgroup"
+          }
+        }
+      }, 
+      "name": "snow_groomer", 
+      "tileheight": 64, 
+      "tilewidth": 64, 
+      "image": "snow_groomer.png", 
+      "spacing": 0, 
+      "tilecount": 6, 
+      "imageheight": 128, 
+      "imagewidth": 192, 
+      "firstgid": 36, 
+      "margin": 0, 
+      "columns": 3
+    }
+  ], 
+  "nextobjectid": 13
 }

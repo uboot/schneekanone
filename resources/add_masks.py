@@ -1,14 +1,10 @@
 import cv2
 import json
 import numpy as np
-import pprint
-
-from constant import GID_TO_SPRITE_MAP
 
 with open('../assets/level.json', 'r') as f:
     level = json.load(f)
 
-physics =  {}
 for tileset in level['tilesets']:
     if not 'image' in tileset:
         continue
@@ -41,23 +37,13 @@ for tileset in level['tilesets']:
         _, contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
         objects = []
-        shapes = []
         for id, contour in enumerate(contours):
             polygon = []
             shape = []
             for pt in contour[::-1,0,:]:
                 polygon.append({'x': int(pt[0]), 'y': int(pt[1])})
-                shape.append(int(pt[0]))
-                shape.append(int(pt[1]))
-            shapes.append({
-                'density': 2,
-                'friction': 0,
-                'bounce': 0,
-                'filter': {'categoryBits': 1, 'maskBits': 65535},
-                'shape': shape
-            })
 
-            object = {
+            obj = {
                 'height': 0,
                 'id': id + 1,
                 'name': '',
@@ -69,7 +55,7 @@ for tileset in level['tilesets']:
                 'x': 0,
                 'y': 0
             }
-            objects.append(object)
+            objects.append(obj)
 
         objectgroup = {
             'draworder': 'index',
@@ -86,10 +72,6 @@ for tileset in level['tilesets']:
 
         tiles[str(tileId)] = {'objectgroup': objectgroup}
 
-        if gid in GID_TO_SPRITE_MAP:
-            spriteName = GID_TO_SPRITE_MAP[gid]['name']
-            physics[spriteName] = shapes
-
         gid += 1
         col += 1
         if col == columns:
@@ -98,11 +80,5 @@ for tileset in level['tilesets']:
 
     tileset['tiles'] = tiles
 
-pp = pprint.PrettyPrinter(indent=2)
-pp.pprint(physics)
-
 with open('../assets/level_masks.json', 'w') as f:
-    json.dump(level, f)
-
-with open('../assets/sprites.json', 'w') as f:
-    json.dump(physics, f)
+    json.dump(level, f, indent=2)

@@ -1,5 +1,4 @@
 import json
-import string
 import struct
 
 from constant import FRAMES_PER_SECOND, KEY_TO_SPRITE_MAP, ID_TO_KEY_MAP
@@ -177,10 +176,12 @@ objects = convertLevel(level)
 #    with open(name) as f:
 #        print readSpriteTemplate(f)
 
-with open('level_template.json.in') as f:
-    template = string.Template(f.read())
+with open('level_template.json') as f:
+    level = json.load(f)
     
-result = template.substitute(objects=json.dumps(objects),
-                             nextobjectid=len(objects) + 2)
+level['layers'][1]['objects'] = objects
+level['nextobjectid'] = len(objects) + 2
+
 with open('../assets/level_1.json', 'w') as f:
-    f.write(result)
+    json.dump(level, f, indent=2)
+    
