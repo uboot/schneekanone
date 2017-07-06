@@ -41,7 +41,7 @@ for tileset in level['tilesets']:
             polygon = []
             shape = []
             for pt in contour[::-1,0,:]:
-                polygon.append({'x': int(pt[0]), 'y': int(pt[1])})
+                polygon.append({'x': int(pt[0])+32, 'y': int(pt[1])+32})
 
             obj = {
                 'height': 0,

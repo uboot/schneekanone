@@ -32,21 +32,6 @@ for tileset in level['tilesets']:
             }
             
             shapes.append(shape)
-        
-#        for objectId, contour in enumerate(contours):
-#            polygon = []
-#            shape = []
-#            for pt in contour[::-1,0,:]:
-#                polygon.append({'x': int(pt[0]), 'y': int(pt[1])})
-#                shape.append(int(pt[0]))
-#                shape.append(int(pt[1]))
-#            shapes.append({
-#                'density': 2,
-#                'friction': 0,
-#                'bounce': 0,
-#                'filter': {'categoryBits': 1, 'maskBits': 65535},
-#                'shape': shape
-#            })
 #
         if gid in GID_TO_SPRITE_MAP:
             spriteName = GID_TO_SPRITE_MAP[gid]['name']

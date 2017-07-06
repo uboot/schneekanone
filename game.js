@@ -49,8 +49,8 @@ function create() {
   map.createFromObjects('background', 1, 'background');
   
   spriteGroup = game.add.group();
-  spriteGroup.enableBody = true;
   spriteGroup.physicsBodyType = Phaser.Physics.P2JS;
+  spriteGroup.enableBody = true;
 
   createObjects(map, 2, 'bonus_sprites', 0);
   createObjects(map, 3, 'bonus_sprites', 1);
@@ -77,6 +77,8 @@ function create() {
   createObjects(map, 28, 'obstacles', 4);
   createObjects(map, 30, 'obstacles', 6);
   createObjects(map, 31, 'obstacles', 7);
+  createObjects(map, 32, 'obstacles', 8);
+  createObjects(map, 33, 'obstacles', 9);
   createObjects(map, 36, 'snow_groomer', 0);
   createObjects(map, 39, 'snow_groomer', 3);
   createObjects(map, 21, 'finish');
@@ -103,8 +105,11 @@ function create() {
 
   // load the body polygons
   spriteGroup.forEach(function(child) {
-    child.body.motionState = Phaser.Physics.P2.Body.STATIC;
+    child.body.clearShapes();
+    child.body.motionState = Phaser.Physics.P2.Body.KINEMATIC;
     child.body.loadPolygon('physics', child.name);
+    child.body.debug = true;
+    child.anchor.setTo(0.0, 0.0);
   });
   
   player = game.add.sprite(50, 20, 'player', 5, spriteGroup);
@@ -112,7 +117,7 @@ function create() {
   player.animations.add('turn_right', [9, 8, 7, 6, 5, 4, 3, 2, 1], 5);
   player.body.velocity.x = 3 * FRAMES_PER_SECOND;
   player.body.velocity.y = 2 * FRAMES_PER_SECOND;
-  player.body.motionState = Phaser.Physics.P2.Body.STATIC;
+  player.body.motionState = Phaser.Physics.P2.Body.KINEMATIC;
   
   cursors = game.input.keyboard.createCursorKeys();
 }
