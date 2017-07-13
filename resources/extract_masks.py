@@ -5,12 +5,12 @@ from constant import GID_TO_SPRITE_MAP
 with open('../assets/level_masks.json', 'r') as f:
     level = json.load(f)
 
-physics =  {}
+physics = {}
 for tileset in level['tilesets']:
     if not 'image' in tileset:
         continue
         
-    gid = tileset['firstgid']
+    firstgid = tileset['firstgid']
 
     for tile in tileset['tiles']:
         objects = tileset['tiles'][tile]['objectgroup']['objects']
@@ -32,12 +32,12 @@ for tileset in level['tilesets']:
             }
             
             shapes.append(shape)
-#
+
+        gid = firstgid + int(tile)
         if gid in GID_TO_SPRITE_MAP:
             spriteName = GID_TO_SPRITE_MAP[gid]['name']
             physics[spriteName] = shapes
 
-        gid += 1
 
 with open('../assets/sprites.json', 'w') as f:
     json.dump(physics, f, indent=2)
