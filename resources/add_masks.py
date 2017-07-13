@@ -2,7 +2,7 @@ import cv2
 import json
 import numpy as np
 
-with open('../assets/level.json', 'r') as f:
+with open('../assets/sprites.json', 'r') as f:
     level = json.load(f)
 
 for tileset in level['tilesets']:
@@ -80,5 +80,5 @@ for tileset in level['tilesets']:
 
     tileset['tiles'] = tiles
 
-with open('../assets/level_masks.json', 'w') as f:
+with open('../assets/masks.json', 'w') as f:
     json.dump(level, f, indent=2)

@@ -227,6 +227,12 @@ SPRITES = [
      "height":64,
      "name":"ice",
      "width":64
+    },
+    {
+     "gid":42,
+     "height":64,
+     "name":"player",
+     "width":35
     }
 ]
 

@@ -2,7 +2,7 @@ import json
 
 from constant import GID_TO_SPRITE_MAP
 
-with open('../assets/level_masks.json', 'r') as f:
+with open('../assets/masks.json', 'r') as f:
     level = json.load(f)
 
 physics = {}
@@ -39,5 +39,5 @@ for tileset in level['tilesets']:
             physics[spriteName] = shapes
 
 
-with open('../assets/sprites.json', 'w') as f:
+with open('../assets/physics.json', 'w') as f:
     json.dump(physics, f, indent=2)

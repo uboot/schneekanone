@@ -28,7 +28,7 @@ function loadSpritesheet(key, frameWidth, frameHeight) {
 function preload() {
   // https://gamedevacademy.org/html5-phaser-tutorial-top-down-games-with-tiled/
   // https://gist.github.com/jdfight/9646833f9bbdcb1104db
-  game.load.tilemap('level', 'assets/level.json', null, Phaser.Tilemap.TILED_JSON);
+  game.load.tilemap('level', 'assets/sprites.json', null, Phaser.Tilemap.TILED_JSON);
 
   loadSpritesheet('bonus_sprites', 32, 32);
   loadSpritesheet('fence', 64, 64);
@@ -39,7 +39,7 @@ function preload() {
   loadSpritesheet('finish', 64, 128);
   
   game.load.image('background', 'assets/background.png');
-  game.load.physics('physics', 'assets/sprites.json');
+  game.load.physics('physics', 'assets/physics.json');
 }
 
 function create() {
@@ -70,6 +70,8 @@ function create() {
   createObjects(map, 17, 'fence', 11);
   createObjects(map, 18, 'fence', 12);
   createObjects(map, 19, 'fence', 13);
+  createObjects(map, 22, 'ground', 0);
+  createObjects(map, 23, 'ground', 1);
   createObjects(map, 24, 'obstacles', 0);
   createObjects(map, 25, 'obstacles', 1);
   createObjects(map, 26, 'obstacles', 2);
@@ -102,6 +104,14 @@ function create() {
   // the finish is usually not part of the level file
   var finish = game.add.sprite(529, 305, 'finish', 0, spriteGroup);
   finish.name = 'finish'
+  
+  player = game.add.sprite(50, 20, 'player', 5, spriteGroup);
+  player.name = 'player'
+  player.animations.add('turn_left', [1, 2, 3, 4, 5, 6, 7, 8, 9], 5, false);
+  player.animations.add('turn_right', [9, 8, 7, 6, 5, 4, 3, 2, 1], 5, false);
+  player.body.velocity.x = 3 * FRAMES_PER_SECOND;
+  player.body.velocity.y = 2 * FRAMES_PER_SECOND;
+  player.body.motionState = Phaser.Physics.P2.Body.KINEMATIC;
 
   // load the body polygons
   spriteGroup.forEach(function(child) {
@@ -111,13 +121,6 @@ function create() {
     child.body.debug = true;
     child.anchor.setTo(0.0, 0.0);
   });
-  
-  player = game.add.sprite(50, 20, 'player', 5, spriteGroup);
-  player.animations.add('turn_left', [1, 2, 3, 4, 5, 6, 7, 8, 9], 5);
-  player.animations.add('turn_right', [9, 8, 7, 6, 5, 4, 3, 2, 1], 5);
-  player.body.velocity.x = 3 * FRAMES_PER_SECOND;
-  player.body.velocity.y = 2 * FRAMES_PER_SECOND;
-  player.body.motionState = Phaser.Physics.P2.Body.KINEMATIC;
   
   cursors = game.input.keyboard.createCursorKeys();
 }
@@ -162,12 +165,16 @@ function update() {
   if (cursors.left.isDown && !player.animations.getAnimation('turn_right').isPlaying)
   {
     var currentFrame = player.frame;
-    player.play('turn_right');
-    player.animations.getAnimation('turn_right').setFrame(currentFrame);
+    if (currentFrame != 1) {
+        player.play('turn_right');
+        player.animations.getAnimation('turn_right').setFrame(currentFrame);
+    }
   } else if (cursors.right.isDown && !player.animations.getAnimation('turn_left').isPlaying) {
     var currentFrame = player.frame;
-    player.play('turn_left');
-    player.animations.getAnimation('turn_left').setFrame(currentFrame);
+    if (currentFrame != 9) {
+        player.play('turn_left');
+        player.animations.getAnimation('turn_left').setFrame(currentFrame);
+    }
   } else if (!cursors.left.isDown && !cursors.right.isDown) {
     player.animations.stop('turn_left');
     player.animations.stop('turn_right');
