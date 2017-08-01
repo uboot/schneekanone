@@ -1,7 +1,5 @@
 import json
 
-from constant import GID_TO_SPRITE_MAP
-
 with open('../assets/masks.json', 'r') as f:
     level = json.load(f)
 
@@ -33,10 +31,8 @@ for tileset in level['tilesets']:
             
             shapes.append(shape)
 
-        gid = firstgid + int(tile)
-        if gid in GID_TO_SPRITE_MAP:
-            spriteName = GID_TO_SPRITE_MAP[gid]['name']
-            physics[spriteName] = shapes
+        spriteName = '{0}_{1}'.format(tileset['name'], tile)
+        physics[spriteName] = shapes
 
 
 with open('../assets/physics.json', 'w') as f:

@@ -4,10 +4,10 @@ PLAYER_FAR_LEFT_FRAME = 9
 
 function SchneeSprite(game, x, y, key, frame) {
   Phaser.Sprite.call(this, game, x, y, key, frame);
+  this.shapeToFrameMap = new Map();
 }
 
-SchneeSprite.prototype = Object.create(Phaser.Sprite.prototype, {
-});
+SchneeSprite.prototype = Object.create(Phaser.Sprite.prototype, {});
 
 var game = new Phaser.Game(640, 480, Phaser.AUTO, '', { 
   preload: preload, 
@@ -94,6 +94,7 @@ function create() {
   spriteGroup.iterate('name', 'snow_groomer_right', Phaser.RETURN_NONE, function(child) {
     child.animations.add('move', [5, 4, 3], FRAMES_PER_SECOND / 5, true);
     child.animations.play('move');
+    child.body
   });
   
   spriteGroup.iterate('name', 'lift_gate', Phaser.RETURN_NONE, function(child) {
@@ -101,25 +102,49 @@ function create() {
     child.animations.play('move');
   });
 
-  // the finish is usually not part of the level file
+  // FIXME: add finish and player to the level files and load them
+  // as SchneeSprite instances via createObjects()
+
+  // the finish is usually not part of the level file...
   var finish = game.add.sprite(529, 305, 'finish', 0, spriteGroup);
-  finish.name = 'finish'
-  
+  finish.name = 'finish';
+  finish.shapeToFrameMap = new Map();
+
+  // ...the same holds for the player
   player = game.add.sprite(50, 20, 'player', 5, spriteGroup);
   player.name = 'player'
   player.animations.add('turn_left', [1, 2, 3, 4, 5, 6, 7, 8, 9], 5, false);
   player.animations.add('turn_right', [9, 8, 7, 6, 5, 4, 3, 2, 1], 5, false);
   player.body.velocity.x = 3 * FRAMES_PER_SECOND;
   player.body.velocity.y = 2 * FRAMES_PER_SECOND;
-  player.body.motionState = Phaser.Physics.P2.Body.KINEMATIC;
+  player.shapeToFrameMap = new Map();
 
   // load the body polygons
   spriteGroup.forEach(function(child) {
     child.body.clearShapes();
     child.body.motionState = Phaser.Physics.P2.Body.KINEMATIC;
-    child.body.loadPolygon('physics', child.name);
     child.body.debug = true;
     child.anchor.setTo(0.0, 0.0);
+
+    // check if this sprite is animated
+    if (! child.animations._outputFrames.length) {
+      // if not simply load the mask for the current frame
+      child.body.loadPolygon('physics', child.key + '_' + child.animations.frame);
+      child.body.data.shapes.forEach(function(shape) {
+          child.shapeToFrameMap.set(shape, child.animations.frame);
+      });
+    } else {
+      // if this is an animated sprite load the masks of each animation frame
+      // and populate the shapeToFrameMap accordingly
+      var startIndex = 0;
+      child.animations._outputFrames.forEach(function(frame) {
+        child.body.loadPolygon('physics', child.key + '_' + frame);
+        for (var i=startIndex; i < child.body.data.shapes.length; i++) {
+          child.shapeToFrameMap.set(child.body.data.shapes[i], child.animations.frame);
+        }
+        startIndex = child.body.data.shapes.length;
+      })
+    }
   });
   
   cursors = game.input.keyboard.createCursorKeys();
