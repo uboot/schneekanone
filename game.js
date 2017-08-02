@@ -9,10 +9,10 @@ function SchneeSprite(game, x, y, key, frame) {
 
 SchneeSprite.prototype = Object.create(Phaser.Sprite.prototype, {});
 
-var game = new Phaser.Game(640, 480, Phaser.AUTO, '', { 
-  preload: preload, 
-  create: create, 
-  update: update 
+var game = new Phaser.Game(640, 480, Phaser.AUTO, '', {
+  preload: preload,
+  create: create,
+  update: update
 });
 
 function createObjects(tilemap, gid, spritesheet, frame) {
@@ -37,20 +37,21 @@ function preload() {
   loadSpritesheet('obstacles', 64, 64);
   loadSpritesheet('player', 35, 64);
   loadSpritesheet('finish', 64, 128);
-  
+
   game.load.image('background', 'assets/background.png');
   game.load.physics('physics', 'assets/physics.json');
 }
 
 function create() {
   game.physics.startSystem(Phaser.Physics.P2JS);
-    
+
   var map = game.add.tilemap('level');
   map.createFromObjects('background', 1, 'background');
-  
+
   spriteGroup = game.add.group();
   spriteGroup.physicsBodyType = Phaser.Physics.P2JS;
   spriteGroup.enableBody = true;
+  spriteGroup.classType = SchneeSprite;
 
   createObjects(map, 2, 'bonus_sprites', 0);
   createObjects(map, 3, 'bonus_sprites', 1);
@@ -90,34 +91,34 @@ function create() {
     child.animations.add('move', [0, 1, 2], FRAMES_PER_SECOND / 5, true);
     child.animations.play('move');
   });
-  
+
   spriteGroup.iterate('name', 'snow_groomer_right', Phaser.RETURN_NONE, function(child) {
     child.animations.add('move', [5, 4, 3], FRAMES_PER_SECOND / 5, true);
     child.animations.play('move');
     child.body
   });
-  
+
   spriteGroup.iterate('name', 'lift_gate', Phaser.RETURN_NONE, function(child) {
     child.animations.add('move', [4, 5], FRAMES_PER_SECOND / 100, true);
     child.animations.play('move');
   });
 
-  // FIXME: add finish and player to the level files and load them
-  // as SchneeSprite instances via createObjects()
-
   // the finish is usually not part of the level file...
   var finish = game.add.sprite(529, 305, 'finish', 0, spriteGroup);
   finish.name = 'finish';
-  finish.shapeToFrameMap = new Map();
 
   // ...the same holds for the player
   player = game.add.sprite(50, 20, 'player', 5, spriteGroup);
   player.name = 'player'
   player.animations.add('turn_left', [1, 2, 3, 4, 5, 6, 7, 8, 9], 5, false);
   player.animations.add('turn_right', [9, 8, 7, 6, 5, 4, 3, 2, 1], 5, false);
+  player.animations.getAnimation('turn_left').enableUpdate = true;
+  player.animations.getAnimation('turn_right').enableUpdate = true;
+  player.animations.getAnimation('turn_left').onUpdate.add(updateVelocity);
+  player.animations.getAnimation('turn_right').onUpdate.add(updateVelocity);
+
   player.body.velocity.x = 3 * FRAMES_PER_SECOND;
   player.body.velocity.y = 2 * FRAMES_PER_SECOND;
-  player.shapeToFrameMap = new Map();
 
   // load the body polygons
   spriteGroup.forEach(function(child) {
@@ -146,14 +147,13 @@ function create() {
       })
     }
   });
-  
+
   cursors = game.input.keyboard.createCursorKeys();
 }
 
-function updateVelocity()
-{
+function updateVelocity(animation, frame) {
   var velocity = new Phaser.Point();
-  switch (player.frame) {
+  switch (frame.index) {
     case 1:
       velocity.set(-2 * FRAMES_PER_SECOND, 3 * FRAMES_PER_SECOND);
       break;
@@ -182,26 +182,51 @@ function updateVelocity()
       velocity.set(3 * FRAMES_PER_SECOND, -2 * FRAMES_PER_SECOND);
       break;
   }
-  
-  player.body.velocity = velocity;
+
+  player.body.velocity.x = velocity.x;
+  player.body.velocity.y = velocity.y;
 }
 
 function update() {
-  if (cursors.left.isDown && !player.animations.getAnimation('turn_right').isPlaying)
-  {
-    var currentFrame = player.frame;
-    if (currentFrame != 1) {
-        player.play('turn_right');
-        player.animations.getAnimation('turn_right').setFrame(currentFrame);
-    }
-  } else if (cursors.right.isDown && !player.animations.getAnimation('turn_left').isPlaying) {
-    var currentFrame = player.frame;
-    if (currentFrame != 9) {
-        player.play('turn_left');
-        player.animations.getAnimation('turn_left').setFrame(currentFrame);
-    }
-  } else if (!cursors.left.isDown && !cursors.right.isDown) {
+  var currentFrame = player.frame;
+
+  // stop turning left if necessary
+  if (player.animations.getAnimation('turn_left').isPlaying
+      && !cursors.right.isDown) {
     player.animations.stop('turn_left');
+    console.log('stop turning left, frame:', currentFrame);
+  }
+
+  // stop turning right if necessary
+  if (player.animations.getAnimation('turn_right').isPlaying
+      && !cursors.left.isDown) {
     player.animations.stop('turn_right');
+    console.log('stop turning right, frame:', currentFrame);
+  }
+
+  // continue if we keep on turning in either direction
+  if (player.animations.getAnimation('turn_left').isPlaying ||
+      player.animations.getAnimation('turn_right').isPlaying) {
+    return;
+  }
+
+  // continue if no arrow key is pressed
+  if (! (cursors.right.isDown || cursors.left.isDown)) {
+    return;
+  }
+
+  // otherwise start the right animation
+  var LEFT_MOST_FRAME = 9;
+  var RIGHT_MOST_FRAME = 1;
+  if (cursors.right.isDown && currentFrame < LEFT_MOST_FRAME) {
+    player.play('turn_left');
+    player.animations.getAnimation('turn_left').setFrame(currentFrame);
+    player.frame = currentFrame;
+    console.log('start turning left, frame:', currentFrame);
+  } else if (cursors.left.isDown && currentFrame > RIGHT_MOST_FRAME) {
+    player.play('turn_right');
+    player.animations.getAnimation('turn_right').setFrame(currentFrame);
+    player.frame = currentFrame;
+    console.log('start turning right, frame:', currentFrame);
   }
 }
