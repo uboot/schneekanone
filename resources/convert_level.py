@@ -10,13 +10,13 @@ def readShort(stream):
 def readLong(stream):
     v, = struct.unpack('>l', stream.read(4))
     return v
-    
+
 def readOSType(stream):
     data = []
     for i in range(4):
         data += struct.unpack('c', stream.read(1))
     return ''.join(data)
-    
+
 def readFixedSprite(stream):
     data = {
         'objectPosX': readShort(stream),
@@ -27,7 +27,7 @@ def readFixedSprite(stream):
         'deltaY': readShort(stream)
     }
     return data
-    
+
 def readMoveSprite(stream):
     data = {
         'objectPosX': readShort(stream),
@@ -44,7 +44,7 @@ def readMoveSprite(stream):
         'deltaY': readShort(stream)
     }
     return data
-    
+
 def readBonusSprite(stream):
     data = {
         'objectPosX': readShort(stream),
@@ -58,7 +58,7 @@ def readBonusSprite(stream):
         'xLScore': readShort(stream)
     }
     return data
-    
+
 def readSpriteTemplate(stream):
     data = {
         'id': readOSType(stream),
@@ -74,23 +74,23 @@ def readSpriteTemplate(stream):
         'cicnIDs': readShort(stream)
     }
     return data
-    
+
 def readLevel(stream):
     fixedSpriteCount = readShort(f)
     fixedSprites = []
     for i in range(fixedSpriteCount):
         fixedSprites.append(readFixedSprite(f))
-        
+
     moveSpriteCount = readShort(f)
     moveSprites = []
     for i in range(moveSpriteCount):
         moveSprites.append(readMoveSprite(f))
-        
+
     bonusSpriteCount = readShort(f)
     bonusSprites = []
     for i in range(bonusSpriteCount):
         bonusSprites.append(readBonusSprite(f))
-    
+
     return {
         'fixedSprites': fixedSprites,
         'moveSprites': moveSprites,
@@ -109,25 +109,28 @@ def convertFixedSprite(sprite):
         'height':  properties['height']
     }
     return newSprite
-    
+
 def convertMoveSprite(sprite):
     newSprite = convertFixedSprite(sprite)
-    speed = (FRAMES_PER_SECOND * 
+    speed = (FRAMES_PER_SECOND *
              float(sprite['moveDelayMult']) / sprite['moveDelay'])
+    length = float(max(sprite['moveX'], sprite['moveY']))
+    direction = (float(sprite['moveX']) / length,
+                 float(sprite['moveY']) / length)
     properties = dict()
-    properties['body.velocity.x'] = sprite['moveX'] * speed
-    properties['body.velocity.y'] = sprite['moveY'] * speed
+    properties['body.velocity.x'] = direction[0] * speed
+    properties['body.velocity.y'] = direction[1] * speed
     propertyTypes = dict()
     propertyTypes['body.velocity.x'] = 'float'
     propertyTypes['body.velocity.y'] = 'float'
     newSprite['properties'] = properties
     newSprite['propertytypes'] = propertyTypes
     return newSprite
-    
+
 def convertBonusSprite(sprite):
     newSprite = convertFixedSprite(sprite)
     return newSprite
-    
+
 def replicateSprite(sprite, newSprite):
     properties = KEY_TO_SPRITE_MAP[ID_TO_KEY_MAP[sprite['spriteID']]]
     count = sprite['spriteCount']
@@ -144,27 +147,27 @@ def replicateSprite(sprite, newSprite):
         y += deltaY
         newSprites.append(copy)
     return newSprites
-    
+
 def convertLevel(level):
     sprites = []
     for sprite in level['fixedSprites']:
         newSprite = convertFixedSprite(sprite)
         sprites += replicateSprite(sprite, newSprite)
-        
+
     for sprite in level['moveSprites']:
         newSprite = convertMoveSprite(sprite)
         sprites += replicateSprite(sprite, newSprite)
-        
+
     for sprite in level['bonusSprites']:
         newSprite = convertBonusSprite(sprite)
         sprites += replicateSprite(sprite, newSprite)
-        
+
     index  = 2
     for newSprite in sprites:
         newSprite['id'] = index
         index += 1
     return sprites
-    
+
 with open('01000') as f:
     level = readLevel(f)
 
@@ -178,10 +181,9 @@ objects = convertLevel(level)
 
 with open('level_template.json') as f:
     level = json.load(f)
-    
+
 level['layers'][1]['objects'] = objects
 level['nextobjectid'] = len(objects) + 2
 
 with open('../assets/level_1.json', 'w') as f:
     json.dump(level, f, indent=2)
-    

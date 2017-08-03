@@ -53,6 +53,9 @@ function create() {
   spriteGroup.enableBody = true;
   spriteGroup.classType = SchneeSprite;
 
+  var objectCollisionGroup = game.physics.p2.createCollisionGroup();
+  var playerCollisionGroup = game.physics.p2.createCollisionGroup();
+
   createObjects(map, 2, 'bonus_sprites', 0);
   createObjects(map, 3, 'bonus_sprites', 1);
   createObjects(map, 4, 'bonus_sprites', 2);
@@ -117,14 +120,16 @@ function create() {
   player.animations.getAnimation('turn_left').onUpdate.add(updateVelocity);
   player.animations.getAnimation('turn_right').onUpdate.add(updateVelocity);
 
-  player.body.velocity.x = 3 * FRAMES_PER_SECOND;
-  player.body.velocity.y = 2 * FRAMES_PER_SECOND;
+  player.body.velocity.x = 3 * FRAMES_PER_SECOND / 3;
+  player.body.velocity.y = 2 * FRAMES_PER_SECOND / 3;
 
   // load the body polygons
   spriteGroup.forEach(function(child) {
     child.body.clearShapes();
     child.body.motionState = Phaser.Physics.P2.Body.KINEMATIC;
     child.body.debug = true;
+    //child.body.setCollisionGroup(objectCollisionGroup);
+    //child.body.collides([playerCollisionGroup]);
     child.anchor.setTo(0.0, 0.0);
 
     // check if this sprite is animated
@@ -148,43 +153,55 @@ function create() {
     }
   });
 
+  player.body.motionState = Phaser.Physics.P2.Body.DYNAMIC;
+  // player.body.setCollisionGroup(playerCollisionGroup);
+  // player.body.collides([objectCollisionGroup]);
+  player.body.onBeginContact.add(playerContact, this);
+
   cursors = game.input.keyboard.createCursorKeys();
+}
+
+function playerContact(body, bodyB, shapeA, shapeB, equation) {
+  if (player.shapeToFrameMap.get(shapeA) === player.frame &&
+      body.sprite.shapeToFrameMap.get(shapeB) === body.sprite.frame) {
+    console.log('contact');
+  }
 }
 
 function updateVelocity(animation, frame) {
   var velocity = new Phaser.Point();
   switch (frame.index) {
-    case 1:
-      velocity.set(-2 * FRAMES_PER_SECOND, 3 * FRAMES_PER_SECOND);
-      break;
-    case 2:
-      velocity.set(-FRAMES_PER_SECOND, 3 * FRAMES_PER_SECOND);
-      break;
-    case 3:
-      velocity.set(0, FRAMES_PER_SECOND);
-      break;
-    case 4:
-      velocity.set(FRAMES_PER_SECOND, 3 * FRAMES_PER_SECOND);
-      break;
-    case 5:
-      velocity.set(3 * FRAMES_PER_SECOND, 2 * FRAMES_PER_SECOND);
-      break;
-    case 6:
-      velocity.set(3 * FRAMES_PER_SECOND, FRAMES_PER_SECOND);
-      break;
-    case 7:
-      velocity.set(FRAMES_PER_SECOND, 0);
-      break;
-    case 8:
-      velocity.set(3 * FRAMES_PER_SECOND, -FRAMES_PER_SECOND);
-      break;
-    case 9:
-      velocity.set(3 * FRAMES_PER_SECOND, -2 * FRAMES_PER_SECOND);
-      break;
+  case 1:
+    velocity.set(-2, 3);
+    break;
+  case 2:
+    velocity.set(-1, 3);
+    break;
+  case 3:
+    velocity.set(0, 3);
+    break;
+  case 4:
+    velocity.set(1, 3);
+    break;
+  case 5:
+    velocity.set(3, 2);
+    break;
+  case 6:
+    velocity.set(3, 1);
+    break;
+  case 7:
+    velocity.set(3, 0);
+    break;
+  case 8:
+    velocity.set(3, -1);
+    break;
+  case 9:
+    velocity.set(3, -2);
+    break;
   }
 
-  player.body.velocity.x = velocity.x;
-  player.body.velocity.y = velocity.y;
+  player.body.velocity.x = velocity.x * FRAMES_PER_SECOND / 3;
+  player.body.velocity.y = velocity.y * FRAMES_PER_SECOND / 3;
 }
 
 function update() {
