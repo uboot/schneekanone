@@ -44,6 +44,7 @@ function preload() {
 
 function create() {
   game.physics.startSystem(Phaser.Physics.P2JS);
+  game.physics.p2.world.applyDamping = false;
 
   var map = game.add.tilemap('level');
   map.createFromObjects('background', 1, 'background');
@@ -128,8 +129,6 @@ function create() {
     child.body.clearShapes();
     child.body.motionState = Phaser.Physics.P2.Body.KINEMATIC;
     child.body.debug = true;
-    //child.body.setCollisionGroup(objectCollisionGroup);
-    //child.body.collides([playerCollisionGroup]);
     child.anchor.setTo(0.0, 0.0);
 
     // check if this sprite is animated
@@ -149,22 +148,35 @@ function create() {
           child.shapeToFrameMap.set(child.body.data.shapes[i], child.animations.frame);
         }
         startIndex = child.body.data.shapes.length;
-      })
+      });
     }
+
+    // set the collision group
+    child.body.setCollisionGroup(objectCollisionGroup);
+    child.body.collides([playerCollisionGroup]);
+    child.body.collideWorldBounds = false;
   });
 
   player.body.motionState = Phaser.Physics.P2.Body.DYNAMIC;
-  // player.body.setCollisionGroup(playerCollisionGroup);
-  // player.body.collides([objectCollisionGroup]);
-  player.body.onBeginContact.add(playerContact, this);
+  player.body.setCollisionGroup(playerCollisionGroup);
+  player.body.collides([objectCollisionGroup]);
+  player.body.onBeginContact.add(beginPlayerContact, this);
+  player.body.onEndContact.add(endPlayerContact, this);
 
   cursors = game.input.keyboard.createCursorKeys();
 }
 
-function playerContact(body, bodyB, shapeA, shapeB, equation) {
+function beginPlayerContact(body, bodyB, shapeA, shapeB, equation) {
   if (player.shapeToFrameMap.get(shapeA) === player.frame &&
       body.sprite.shapeToFrameMap.get(shapeB) === body.sprite.frame) {
-    console.log('contact');
+    console.log('begin contact');
+  }
+}
+
+function endPlayerContact(body, bodyB, shapeA, shapeB, equation) {
+  if (player.shapeToFrameMap.get(shapeA) === player.frame &&
+      body.sprite.shapeToFrameMap.get(shapeB) === body.sprite.frame) {
+    console.log('end contact');
   }
 }
 
